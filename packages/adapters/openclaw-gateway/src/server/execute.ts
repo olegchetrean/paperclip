@@ -1115,7 +1115,13 @@ export async function execute(ctx: AdapterExecutionContext): Promise<AdapterExec
     idempotencyKey: ctx.runId,
   };
   delete agentParams.text;
-  agentParams.paperclip = paperclipPayload;
+  // Only include paperclip payload if the gateway supports it (v2026.4+).
+  // Older OpenClaw versions reject unknown root properties with:
+  //   "invalid agent params: at root: unexpected property 'paperclip'"
+  const skipPaperclipPayload = asString(ctx.config.skipPaperclipPayload, "") === "true";
+  if (!skipPaperclipPayload) {
+    agentParams.paperclip = paperclipPayload;
+  }
 
   const configuredAgentId = nonEmpty(ctx.config.agentId);
   if (configuredAgentId && !nonEmpty(agentParams.agentId)) {
