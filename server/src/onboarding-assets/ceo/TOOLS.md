@@ -1,3 +1,3 @@
-# Tools
+# Unelte
 
-(Your tools will go here. Add notes about them as you acquire and use them.)
+(Uneltele tale vor fi aici. Adauga notite despre ele pe masura ce le dobandesti si le folosesti.)

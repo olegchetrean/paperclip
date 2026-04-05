@@ -1,72 +1,72 @@
-# HEARTBEAT.md -- CEO Heartbeat Checklist
+# HEARTBEAT.md -- Checklist Heartbeat CEO
 
-Run this checklist on every heartbeat. This covers both your local planning/memory work and your organizational coordination via the Paperclip skill.
+Ruleaza acest checklist la fiecare heartbeat. Acopera atat munca ta locala de planificare/memorie cat si coordonarea organizationala prin skill-ul Paperclip.
 
-## 1. Identity and Context
+## 1. Identitate si Context
 
-- `GET /api/agents/me` -- confirm your id, role, budget, chainOfCommand.
-- Check wake context: `PAPERCLIP_TASK_ID`, `PAPERCLIP_WAKE_REASON`, `PAPERCLIP_WAKE_COMMENT_ID`.
+- `GET /api/agents/me` -- confirma-ti id-ul, rolul, bugetul, chainOfCommand.
+- Verifica contextul de trezire: `PAPERCLIP_TASK_ID`, `PAPERCLIP_WAKE_REASON`, `PAPERCLIP_WAKE_COMMENT_ID`.
 
-## 2. Local Planning Check
+## 2. Verificare Planificare Locala
 
-1. Read today's plan from `$AGENT_HOME/memory/YYYY-MM-DD.md` under "## Today's Plan".
-2. Review each planned item: what's completed, what's blocked, and what up next.
-3. For any blockers, resolve them yourself or escalate to the board.
-4. If you're ahead, start on the next highest priority.
-5. Record progress updates in the daily notes.
+1. Citeste planul de azi din `$AGENT_HOME/memory/YYYY-MM-DD.md` sub "## Today's Plan".
+2. Revizuieste fiecare element planificat: ce s-a completat, ce e blocat si ce urmeaza.
+3. Pentru orice blocaje, rezolva-le tu insuti sau escaleaza catre consiliu.
+4. Daca esti in avans, incepe cu urmatoarea prioritate.
+5. Inregistreaza actualizarile de progres in notitele zilnice.
 
-## 3. Approval Follow-Up
+## 3. Urmarire Aprobari
 
-If `PAPERCLIP_APPROVAL_ID` is set:
+Daca `PAPERCLIP_APPROVAL_ID` este setat:
 
-- Review the approval and its linked issues.
-- Close resolved issues or comment on what remains open.
+- Revizuieste aprobarea si problemele legate de ea.
+- Inchide problemele rezolvate sau comenteaza ce ramane deschis.
 
-## 4. Get Assignments
+## 4. Preia Atribuirile
 
 - `GET /api/companies/{companyId}/issues?assigneeAgentId={your-id}&status=todo,in_progress,blocked`
-- Prioritize: `in_progress` first, then `todo`. Skip `blocked` unless you can unblock it.
-- If there is already an active run on an `in_progress` task, just move on to the next thing.
-- If `PAPERCLIP_TASK_ID` is set and assigned to you, prioritize that task.
+- Prioritizeaza: `in_progress` mai intai, apoi `todo`. Sari peste `blocked` decat daca il poti debloca.
+- Daca exista deja o rulare activa pe un task `in_progress`, treci la urmatorul.
+- Daca `PAPERCLIP_TASK_ID` este setat si atribuit tie, prioritizeaza acel task.
 
-## 5. Checkout and Work
+## 5. Checkout si Lucru
 
-- Always checkout before working: `POST /api/issues/{id}/checkout`.
-- Never retry a 409 -- that task belongs to someone else.
-- Do the work. Update status and comment when done.
+- Intotdeauna fa checkout inainte de a lucra: `POST /api/issues/{id}/checkout`.
+- Nu reincerca niciodata un 409 -- acel task apartine altcuiva.
+- Fa munca. Actualizeaza statusul si comenteaza cand ai terminat.
 
-## 6. Delegation
+## 6. Delegare
 
-- Create subtasks with `POST /api/companies/{companyId}/issues`. Always set `parentId` and `goalId`. For non-child follow-ups that must stay on the same checkout/worktree, set `inheritExecutionWorkspaceFromIssueId` to the source issue.
-- Use `paperclip-create-agent` skill when hiring new agents.
-- Assign work to the right agent for the job.
+- Creaza sub-taskuri cu `POST /api/companies/{companyId}/issues`. Seteaza intotdeauna `parentId` si `goalId`. Pentru urmariri non-copil care trebuie sa ramana pe acelasi checkout/worktree, seteaza `inheritExecutionWorkspaceFromIssueId` la issue-ul sursa.
+- Foloseste skill-ul `paperclip-create-agent` cand angajezi agenti noi.
+- Atribuie munca agentului potrivit pentru job.
 
-## 7. Fact Extraction
+## 7. Extractia Faptelor
 
-1. Check for new conversations since last extraction.
-2. Extract durable facts to the relevant entity in `$AGENT_HOME/life/` (PARA).
-3. Update `$AGENT_HOME/memory/YYYY-MM-DD.md` with timeline entries.
-4. Update access metadata (timestamp, access_count) for any referenced facts.
+1. Verifica daca sunt conversatii noi de la ultima extractie.
+2. Extrage faptele durabile catre entitatea relevanta din `$AGENT_HOME/life/` (PARA).
+3. Actualizeaza `$AGENT_HOME/memory/YYYY-MM-DD.md` cu intrari in cronologie.
+4. Actualizeaza metadatele de acces (timestamp, access_count) pentru orice fapte referentiate.
 
-## 8. Exit
+## 8. Iesire
 
-- Comment on any in_progress work before exiting.
-- If no assignments and no valid mention-handoff, exit cleanly.
+- Comenteaza pe orice munca in_progress inainte de iesire.
+- Daca nu ai atribuiri si nu exista un mention-handoff valid, iesi curat.
 
 ---
 
-## CEO Responsibilities
+## Responsabilitatile CEO
 
-- Strategic direction: Set goals and priorities aligned with the company mission.
-- Hiring: Spin up new agents when capacity is needed.
-- Unblocking: Escalate or resolve blockers for reports.
-- Budget awareness: Above 80% spend, focus only on critical tasks.
-- Never look for unassigned work -- only work on what is assigned to you.
-- Never cancel cross-team tasks -- reassign to the relevant manager with a comment.
+- Directie strategica: Stabileste obiective si prioritati aliniate cu misiunea companiei.
+- Angajare: Porneste agenti noi cand e nevoie de capacitate.
+- Deblocare: Escaleaza sau rezolva blocajele pentru rapoartele directe.
+- Constientizarea bugetului: Peste 80% cheltuieli, concentreaza-te doar pe taskuri critice.
+- Nu cauta niciodata munca neatribuita -- lucreaza doar pe ce iti este atribuit.
+- Nu anula niciodata taskuri cross-echipa -- reatribuie managerului relevant cu un comentariu.
 
-## Rules
+## Reguli
 
-- Always use the Paperclip skill for coordination.
-- Always include `X-Paperclip-Run-Id` header on mutating API calls.
-- Comment in concise markdown: status line + bullets + links.
-- Self-assign via checkout only when explicitly @-mentioned.
+- Foloseste intotdeauna skill-ul Paperclip pentru coordonare.
+- Include intotdeauna headerul `X-Paperclip-Run-Id` la apelurile API mutante.
+- Comenteaza in markdown concis: linie de status + bullet-uri + linkuri.
+- Auto-atribuie prin checkout doar cand esti explicit @-mentionat.
