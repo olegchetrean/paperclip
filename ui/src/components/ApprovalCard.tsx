@@ -47,7 +47,7 @@ export function ApprovalCard({
             <span className="font-medium text-sm">{label}</span>
             {requesterAgent && (
               <span className="text-xs text-muted-foreground">
-                requested by <Identity name={requesterAgent.name} size="sm" className="inline-flex" />
+                solicitat de <Identity name={requesterAgent.name} size="sm" className="inline-flex" />
               </span>
             )}
           </div>
@@ -78,7 +78,7 @@ export function ApprovalCard({
             onClick={onApprove}
             disabled={isPending}
           >
-            Approve
+            Aproba
           </Button>
           <Button
             variant="destructive"
@@ -86,18 +86,18 @@ export function ApprovalCard({
             onClick={onReject}
             disabled={isPending}
           >
-            Reject
+            Respinge
           </Button>
         </div>
       )}
       <div className="mt-3">
         {detailLink ? (
           <Button variant="ghost" size="sm" className="text-xs px-0" asChild>
-            <Link to={detailLink}>View details</Link>
+            <Link to={detailLink}>Vezi detalii</Link>
           </Button>
         ) : (
           <Button variant="ghost" size="sm" className="text-xs px-0" onClick={onOpen}>
-            View details
+            Vezi detalii
           </Button>
         )}
       </div>

@@ -92,28 +92,28 @@ type IssueDetailComment = (IssueComment | OptimisticIssueComment) & {
 };
 
 const ACTION_LABELS: Record<string, string> = {
-  "issue.created": "created the issue",
-  "issue.updated": "updated the issue",
-  "issue.checked_out": "checked out the issue",
-  "issue.released": "released the issue",
-  "issue.comment_added": "added a comment",
-  "issue.feedback_vote_saved": "saved feedback on an AI output",
-  "issue.attachment_added": "added an attachment",
-  "issue.attachment_removed": "removed an attachment",
-  "issue.document_created": "created a document",
-  "issue.document_updated": "updated a document",
-  "issue.document_deleted": "deleted a document",
-  "issue.deleted": "deleted the issue",
-  "agent.created": "created an agent",
-  "agent.updated": "updated the agent",
-  "agent.paused": "paused the agent",
-  "agent.resumed": "resumed the agent",
-  "agent.terminated": "terminated the agent",
-  "heartbeat.invoked": "invoked a heartbeat",
-  "heartbeat.cancelled": "cancelled a heartbeat",
-  "approval.created": "requested approval",
-  "approval.approved": "approved",
-  "approval.rejected": "rejected",
+  "issue.created": "a creat taskul",
+  "issue.updated": "a actualizat taskul",
+  "issue.checked_out": "a preluat taskul",
+  "issue.released": "a eliberat taskul",
+  "issue.comment_added": "a adaugat un comentariu",
+  "issue.feedback_vote_saved": "a salvat feedback pe un output AI",
+  "issue.attachment_added": "a adaugat un atasament",
+  "issue.attachment_removed": "a eliminat un atasament",
+  "issue.document_created": "a creat un document",
+  "issue.document_updated": "a actualizat un document",
+  "issue.document_deleted": "a sters un document",
+  "issue.deleted": "a sters taskul",
+  "agent.created": "a creat un agent",
+  "agent.updated": "a actualizat agentul",
+  "agent.paused": "a pus pe pauza agentul",
+  "agent.resumed": "a reluat agentul",
+  "agent.terminated": "a terminat agentul",
+  "heartbeat.invoked": "a invocat un heartbeat",
+  "heartbeat.cancelled": "a anulat un heartbeat",
+  "approval.created": "a solicitat aprobare",
+  "approval.approved": "a aprobat",
+  "approval.rejected": "a respins",
 };
 
 const FEEDBACK_TERMS_URL = import.meta.env.VITE_FEEDBACK_TERMS_URL?.trim() || "https://paperclip.ing/tos";
@@ -181,27 +181,27 @@ function formatAction(action: string, details?: Record<string, unknown> | null):
       const from = previous.status;
       parts.push(
         from
-          ? `changed the status from ${humanizeValue(from)} to ${humanizeValue(details.status)}`
-          : `changed the status to ${humanizeValue(details.status)}`
+          ? `a schimbat starea din ${humanizeValue(from)} in ${humanizeValue(details.status)}`
+          : `a schimbat starea in ${humanizeValue(details.status)}`
       );
     }
     if (details.priority !== undefined) {
       const from = previous.priority;
       parts.push(
         from
-          ? `changed the priority from ${humanizeValue(from)} to ${humanizeValue(details.priority)}`
-          : `changed the priority to ${humanizeValue(details.priority)}`
+          ? `a schimbat prioritatea din ${humanizeValue(from)} in ${humanizeValue(details.priority)}`
+          : `a schimbat prioritatea in ${humanizeValue(details.priority)}`
       );
     }
     if (details.assigneeAgentId !== undefined || details.assigneeUserId !== undefined) {
       parts.push(
         details.assigneeAgentId || details.assigneeUserId
-          ? "assigned the issue"
-          : "unassigned the issue",
+          ? "a asignat taskul"
+          : "a dezasignat taskul",
       );
     }
-    if (details.title !== undefined) parts.push("updated the title");
-    if (details.description !== undefined) parts.push("updated the description");
+    if (details.title !== undefined) parts.push("a actualizat titlul");
+    if (details.description !== undefined) parts.push("a actualizat descrierea");
 
     if (parts.length > 0) return parts.join(", ");
   }
@@ -707,8 +707,8 @@ export function IssueDetail() {
         queryClient.setQueryData(queryKeys.issues.detail(issueId!), context.previousIssue);
       }
       pushToast({
-        title: "Comment failed",
-        body: err instanceof Error ? err.message : "Unable to post comment",
+        title: "Comentariu esuat",
+        body: err instanceof Error ? err.message : "Nu s-a putut posta comentariul",
         tone: "error",
       });
     },
@@ -795,8 +795,8 @@ export function IssueDetail() {
         queryClient.setQueryData(queryKeys.issues.detail(issueId!), context.previousIssue);
       }
       pushToast({
-        title: "Comment failed",
-        body: err instanceof Error ? err.message : "Unable to post comment",
+        title: "Comentariu esuat",
+        body: err instanceof Error ? err.message : "Nu s-a putut posta comentariul",
         tone: "error",
       });
     },
@@ -811,15 +811,15 @@ export function IssueDetail() {
     onSuccess: () => {
       invalidateIssue();
       pushToast({
-        title: "Interrupt requested",
-        body: "The active run is stopping so queued comments can continue next.",
+        title: "Intrerupere solicitata",
+        body: "Rularea activa se opreste pentru ca comentariile din coada sa poata continua.",
         tone: "success",
       });
     },
     onError: (err) => {
       pushToast({
-        title: "Interrupt failed",
-        body: err instanceof Error ? err.message : "Unable to interrupt the active run",
+        title: "Intrerupere esuata",
+        body: err instanceof Error ? err.message : "Nu s-a putut intrerupe rularea activa",
         tone: "error",
       });
     },
@@ -946,12 +946,12 @@ export function IssueDetail() {
     onSuccess: () => {
       invalidateIssue();
       navigate(sourceBreadcrumb.href.startsWith("/inbox") ? sourceBreadcrumb.href : "/inbox", { replace: true });
-      pushToast({ title: "Issue archived from inbox", tone: "success" });
+      pushToast({ title: "Task arhivat din inbox", tone: "success" });
     },
     onError: (err) => {
       pushToast({
-        title: "Archive failed",
-        body: err instanceof Error ? err.message : "Unable to archive this issue from the inbox",
+        title: "Arhivare esuata",
+        body: err instanceof Error ? err.message : "Nu s-a putut arhiva acest task din inbox",
         tone: "error",
       });
     },
@@ -1073,11 +1073,11 @@ export function IssueDetail() {
     const md = `# ${issue.identifier}: ${title}\n\n${body}`.trimEnd();
     await navigator.clipboard.writeText(md);
     setCopied(true);
-    pushToast({ title: "Copied to clipboard", tone: "success" });
+    pushToast({ title: "Copiat in clipboard", tone: "success" });
     setTimeout(() => setCopied(false), 2000);
   };
 
-  if (isLoading) return <p className="text-sm text-muted-foreground">Loading...</p>;
+  if (isLoading) return <p className="text-sm text-muted-foreground">Se incarca...</p>;
   if (error) return <p className="text-sm text-destructive">{error.message}</p>;
   if (!issue) return null;
 
@@ -1137,10 +1137,10 @@ export function IssueDetail() {
         )}
       >
         <Paperclip className="h-3.5 w-3.5 mr-1.5" />
-        {uploadAttachment.isPending || importMarkdownDocument.isPending ? "Uploading..." : (
+        {uploadAttachment.isPending || importMarkdownDocument.isPending ? "Se incarca..." : (
           <>
-            <span className="hidden sm:inline">Upload attachment</span>
-            <span className="sm:hidden">Upload</span>
+            <span className="hidden sm:inline">Incarca atasament</span>
+            <span className="sm:hidden">Incarca</span>
           </>
         )}
       </Button>
@@ -1173,7 +1173,7 @@ export function IssueDetail() {
       {issue.hiddenAt && (
         <div className="flex items-center gap-2 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
           <EyeOff className="h-4 w-4 shrink-0" />
-          This issue is hidden
+          Acest task este ascuns
         </div>
       )}
 
@@ -1220,7 +1220,7 @@ export function IssueDetail() {
           ) : (
             <span className="inline-flex items-center gap-1 text-xs text-muted-foreground opacity-50 px-1 -mx-1 py-0.5">
               <Hexagon className="h-3 w-3 shrink-0" />
-              No project
+              Fara proiect
             </span>
           )}
 
@@ -1250,7 +1250,7 @@ export function IssueDetail() {
               variant="ghost"
               size="icon-xs"
               onClick={copyIssueToClipboard}
-              title="Copy issue as markdown"
+              title="Copiaza taskul ca markdown"
             >
               {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
             </Button>
@@ -1258,7 +1258,7 @@ export function IssueDetail() {
               variant="ghost"
               size="icon-xs"
               onClick={() => setMobilePropsOpen(true)}
-              title="Properties"
+              title="Proprietati"
             >
               <SlidersHorizontal className="h-4 w-4" />
             </Button>
@@ -1269,7 +1269,7 @@ export function IssueDetail() {
               variant="ghost"
               size="icon-xs"
               onClick={copyIssueToClipboard}
-              title="Copy issue as markdown"
+              title="Copiaza taskul ca markdown"
             >
               {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
             </Button>
@@ -1281,7 +1281,7 @@ export function IssueDetail() {
                 panelVisible ? "opacity-0 pointer-events-none w-0 overflow-hidden" : "opacity-100",
               )}
               onClick={() => setPanelVisible(true)}
-              title="Show properties"
+              title="Arata proprietati"
             >
               <SlidersHorizontal className="h-4 w-4" />
             </Button>
@@ -1304,7 +1304,7 @@ export function IssueDetail() {
                 }}
               >
                 <EyeOff className="h-3 w-3" />
-                Hide this Issue
+                Ascunde acest task
               </button>
             </PopoverContent>
             </Popover>
@@ -1323,7 +1323,7 @@ export function IssueDetail() {
           onSave={(description) => updateIssue.mutateAsync({ description })}
           as="p"
           className="text-[15px] leading-7 text-foreground"
-          placeholder="Add a description..."
+          placeholder="Adauga o descriere..."
           multiline
           mentions={mentionOptions}
           imageUploadHandler={async (file) => {
@@ -1418,7 +1418,7 @@ export function IssueDetail() {
         onDrop={(evt) => void handleAttachmentDrop(evt)}
       >
         <div className="flex items-center justify-between gap-2">
-          <h3 className="text-sm font-medium text-muted-foreground">Attachments</h3>
+          <h3 className="text-sm font-medium text-muted-foreground">Atasamente</h3>
           {attachmentUploadButton}
         </div>
 
@@ -1444,7 +1444,7 @@ export function IssueDetail() {
                   className="text-muted-foreground hover:text-destructive"
                   onClick={() => deleteAttachment.mutate(attachment.id)}
                   disabled={deleteAttachment.isPending}
-                  title="Delete attachment"
+                  title="Sterge atasament"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>
@@ -1495,15 +1495,15 @@ export function IssueDetail() {
         <TabsList variant="line" className="w-full justify-start gap-1">
           <TabsTrigger value="comments" className="gap-1.5">
             <MessageSquare className="h-3.5 w-3.5" />
-            Comments
+            Comentarii
           </TabsTrigger>
           <TabsTrigger value="subissues" className="gap-1.5">
             <ListTree className="h-3.5 w-3.5" />
-            Sub-issues
+            Sub-taskuri
           </TabsTrigger>
           <TabsTrigger value="activity" className="gap-1.5">
             <ActivityIcon className="h-3.5 w-3.5" />
-            Activity
+            Activitate
           </TabsTrigger>
           {issuePluginTabItems.map((item) => (
             <TabsTrigger key={item.value} value={item.value}>
@@ -1567,7 +1567,7 @@ export function IssueDetail() {
 
         <TabsContent value="subissues">
           {childIssues.length === 0 ? (
-            <p className="text-xs text-muted-foreground">No sub-issues.</p>
+            <p className="text-xs text-muted-foreground">Fara sub-taskuri.</p>
           ) : (
             <div className="border border-border rounded-lg divide-y divide-border">
               {childIssues.map((child) => (

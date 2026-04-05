@@ -118,7 +118,7 @@ export function IssueRow({
                 "inline-flex h-4 w-4 items-center justify-center rounded-full transition-colors",
                 selected ? "hover:bg-muted/80" : "hover:bg-blue-500/20",
               )}
-              aria-label="Mark as read"
+              aria-label="Marcheaza ca citit"
             >
               <span
                 className={cn(
@@ -144,7 +144,7 @@ export function IssueRow({
               }}
               disabled={archiveDisabled}
               className="inline-flex h-4 w-4 items-center justify-center rounded-md text-muted-foreground opacity-0 transition-opacity hover:text-foreground group-hover:opacity-100 disabled:pointer-events-none disabled:opacity-30"
-              aria-label="Dismiss from inbox"
+              aria-label="Respinge din inbox"
             >
               <X className="h-3.5 w-3.5" />
             </button>

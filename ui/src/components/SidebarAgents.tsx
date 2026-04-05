@@ -81,7 +81,7 @@ export function SidebarAgents() {
               )}
             />
             <span className="text-[10px] font-medium uppercase tracking-widest font-mono text-muted-foreground/60">
-              Agents
+              Agenti
             </span>
           </CollapsibleTrigger>
           <button
@@ -130,7 +130,7 @@ export function SidebarAgents() {
                     ) : null}
                     {runCount > 0 ? (
                       <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400">
-                        {runCount} live
+                        {runCount} activ
                       </span>
                     ) : null}
                   </span>

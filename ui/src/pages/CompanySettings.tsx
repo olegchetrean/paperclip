@@ -91,14 +91,14 @@ export function CompanySettings() {
     onSuccess: (_company, enabled) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.companies.all });
       pushToast({
-        title: enabled ? "Feedback sharing enabled" : "Feedback sharing disabled",
+        title: enabled ? "Partajare feedback activata" : "Partajare feedback dezactivata",
         tone: "success",
       });
     },
     onError: (err) => {
       pushToast({
-        title: "Failed to update feedback sharing",
-        body: err instanceof Error ? err.message : "Unknown error",
+        title: "Nu s-a putut actualiza partajarea feedback-ului",
+        body: err instanceof Error ? err.message : "Eroare necunoscuta",
         tone: "error",
       });
     },
@@ -152,7 +152,7 @@ export function CompanySettings() {
     },
     onError: (err) => {
       setInviteError(
-        err instanceof Error ? err.message : "Failed to create invite"
+        err instanceof Error ? err.message : "Nu s-a putut crea invitatia"
       );
     }
   });
@@ -223,15 +223,15 @@ export function CompanySettings() {
 
   useEffect(() => {
     setBreadcrumbs([
-      { label: selectedCompany?.name ?? "Company", href: "/dashboard" },
-      { label: "Settings" }
+      { label: selectedCompany?.name ?? "Companie", href: "/dashboard" },
+      { label: "Setari" }
     ]);
   }, [setBreadcrumbs, selectedCompany?.name]);
 
   if (!selectedCompany) {
     return (
       <div className="text-sm text-muted-foreground">
-        No company selected. Select a company from the switcher above.
+        Nicio companie selectata. Selecteaza o companie din comutatorul de mai sus.
       </div>
     );
   }
@@ -248,16 +248,17 @@ export function CompanySettings() {
     <div className="max-w-2xl space-y-6">
       <div className="flex items-center gap-2">
         <Settings className="h-5 w-5 text-muted-foreground" />
-        <h1 className="text-lg font-semibold">Company Settings</h1>
+        <h1 className="text-lg font-semibold">Setari Companie</h1>
       </div>
 
       {/* General */}
       <div className="space-y-4">
         <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
           General
+
         </div>
         <div className="space-y-3 rounded-md border border-border px-4 py-4">
-          <Field label="Company name" hint="The display name for your company.">
+          <Field label="Numele companiei" hint="Numele afisat pentru compania ta.">
             <input
               className="w-full rounded-md border border-border bg-transparent px-2.5 py-1.5 text-sm outline-none"
               type="text"
@@ -266,14 +267,14 @@ export function CompanySettings() {
             />
           </Field>
           <Field
-            label="Description"
-            hint="Optional description shown in the company profile."
+            label="Descriere"
+            hint="Descriere optionala afisata in profilul companiei."
           >
             <input
               className="w-full rounded-md border border-border bg-transparent px-2.5 py-1.5 text-sm outline-none"
               type="text"
               value={description}
-              placeholder="Optional company description"
+              placeholder="Descriere optionala a companiei"
               onChange={(e) => setDescription(e.target.value)}
             />
           </Field>
@@ -283,7 +284,7 @@ export function CompanySettings() {
       {/* Appearance */}
       <div className="space-y-4">
         <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-          Appearance
+          Aspect
         </div>
         <div className="space-y-3 rounded-md border border-border px-4 py-4">
           <div className="flex items-start gap-4">
@@ -298,7 +299,7 @@ export function CompanySettings() {
             <div className="flex-1 space-y-3">
               <Field
                 label="Logo"
-                hint="Upload a PNG, JPEG, WEBP, GIF, or SVG logo image."
+                hint="Incarca o imagine logo PNG, JPEG, WEBP, GIF sau SVG."
               >
                 <div className="space-y-2">
                   <input
@@ -315,7 +316,7 @@ export function CompanySettings() {
                         onClick={handleClearLogo}
                         disabled={clearLogoMutation.isPending}
                       >
-                        {clearLogoMutation.isPending ? "Removing..." : "Remove logo"}
+                        {clearLogoMutation.isPending ? "Se sterge..." : "Sterge logo"}
                       </Button>
                     </div>
                   )}
@@ -324,7 +325,7 @@ export function CompanySettings() {
                       {logoUploadError ??
                         (logoUploadMutation.error instanceof Error
                           ? logoUploadMutation.error.message
-                          : "Logo upload failed")}
+                          : "Incarcarea logo-ului a esuat")}
                     </span>
                   )}
                   {clearLogoMutation.isError && (
@@ -333,13 +334,13 @@ export function CompanySettings() {
                     </span>
                   )}
                   {logoUploadMutation.isPending && (
-                    <span className="text-xs text-muted-foreground">Uploading logo...</span>
+                    <span className="text-xs text-muted-foreground">Se incarca logo-ul...</span>
                   )}
                 </div>
               </Field>
               <Field
-                label="Brand color"
-                hint="Sets the hue for the company icon. Leave empty for auto-generated color."
+                label="Culoare brand"
+                hint="Seteaza nuanta pentru iconita companiei. Lasa gol pentru culoare auto-generata."
               >
                 <div className="flex items-center gap-2">
                   <input
@@ -358,6 +359,7 @@ export function CompanySettings() {
                       }
                     }}
                     placeholder="Auto"
+
                     className="w-28 rounded-md border border-border bg-transparent px-2.5 py-1.5 text-sm font-mono outline-none"
                   />
                   {brandColor && (
@@ -367,7 +369,7 @@ export function CompanySettings() {
                       onClick={() => setBrandColor("")}
                       className="text-xs text-muted-foreground"
                     >
-                      Clear
+                      Sterge
                     </Button>
                   )}
                 </div>
@@ -385,16 +387,16 @@ export function CompanySettings() {
             onClick={handleSaveGeneral}
             disabled={generalMutation.isPending || !companyName.trim()}
           >
-            {generalMutation.isPending ? "Saving..." : "Save changes"}
+            {generalMutation.isPending ? "Se salveaza..." : "Salveaza modificarile"}
           </Button>
           {generalMutation.isSuccess && (
-            <span className="text-xs text-muted-foreground">Saved</span>
+            <span className="text-xs text-muted-foreground">Salvat</span>
           )}
           {generalMutation.isError && (
             <span className="text-xs text-destructive">
               {generalMutation.error instanceof Error
                   ? generalMutation.error.message
-                  : "Failed to save"}
+                  : "Nu s-a putut salva"}
             </span>
           )}
         </div>
@@ -403,12 +405,12 @@ export function CompanySettings() {
       {/* Hiring */}
       <div className="space-y-4" data-testid="company-settings-team-section">
         <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-          Hiring
+          Angajare
         </div>
         <div className="rounded-md border border-border px-4 py-3">
           <ToggleField
-            label="Require board approval for new hires"
-            hint="New agent hires stay pending until approved by board."
+            label="Necesita aprobarea consiliului pentru angajari noi"
+            hint="Angajarile de agenti noi raman in asteptare pana la aprobarea consiliului."
             checked={!!selectedCompany.requireBoardApprovalForNewAgents}
             onChange={(v) => settingsMutation.mutate(v)}
             toggleTestId="company-settings-team-approval-toggle"
@@ -418,31 +420,31 @@ export function CompanySettings() {
 
       <div className="space-y-4">
         <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-          Feedback Sharing
+          Partajare Feedback
         </div>
         <div className="space-y-3 rounded-md border border-border px-4 py-4">
           <ToggleField
-            label="Allow sharing voted AI outputs with Paperclip Labs"
-            hint="Only AI-generated outputs you explicitly vote on are eligible for feedback sharing."
+            label="Permite partajarea rezultatelor AI votate cu Paperclip Labs"
+            hint="Doar rezultatele generate de AI pe care le votezi explicit sunt eligibile pentru partajare."
             checked={!!selectedCompany.feedbackDataSharingEnabled}
             onChange={(enabled) => feedbackSharingMutation.mutate(enabled)}
           />
           <p className="text-sm text-muted-foreground">
-            Votes are always saved locally. This setting controls whether voted AI outputs may also be marked for sharing with Paperclip Labs.
+            Voturile sunt intotdeauna salvate local. Aceasta setare controleaza daca rezultatele AI votate pot fi marcate si pentru partajare cu Paperclip Labs.
           </p>
           <div className="space-y-1 text-xs text-muted-foreground">
             <div>
-              Terms version: {selectedCompany.feedbackDataSharingTermsVersion ?? DEFAULT_FEEDBACK_DATA_SHARING_TERMS_VERSION}
+              Versiune termeni: {selectedCompany.feedbackDataSharingTermsVersion ?? DEFAULT_FEEDBACK_DATA_SHARING_TERMS_VERSION}
             </div>
             {selectedCompany.feedbackDataSharingConsentAt ? (
               <div>
-                Enabled {new Date(selectedCompany.feedbackDataSharingConsentAt).toLocaleString()}
+                Activat {new Date(selectedCompany.feedbackDataSharingConsentAt).toLocaleString()}
                 {selectedCompany.feedbackDataSharingConsentByUserId
                   ? ` by ${selectedCompany.feedbackDataSharingConsentByUserId}`
                   : ""}
               </div>
             ) : (
-              <div>Sharing is currently disabled.</div>
+              <div>Partajarea este dezactivata in prezent.</div>
             )}
             {FEEDBACK_TERMS_URL ? (
               <a
@@ -451,7 +453,7 @@ export function CompanySettings() {
                 rel="noreferrer"
                 className="inline-flex text-foreground underline underline-offset-4"
               >
-                Read our terms of service
+                Citeste termenii si conditiile
               </a>
             ) : null}
           </div>
@@ -461,14 +463,14 @@ export function CompanySettings() {
       {/* Invites */}
       <div className="space-y-4" data-testid="company-settings-invites-section">
         <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-          Invites
+          Invitatii
         </div>
         <div className="space-y-3 rounded-md border border-border px-4 py-4">
           <div className="flex items-center gap-1.5">
             <span className="text-xs text-muted-foreground">
-              Generate an OpenClaw agent invite snippet.
+              Genereaza un fragment de invitatie agent OpenClaw.
             </span>
-            <HintIcon text="Creates a short-lived OpenClaw agent invite and renders a copy-ready prompt." />
+            <HintIcon text="Creeaza o invitatie agent OpenClaw cu durata scurta si genereaza un prompt gata de copiat." />
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <Button
@@ -478,8 +480,8 @@ export function CompanySettings() {
               disabled={inviteMutation.isPending}
             >
               {inviteMutation.isPending
-                ? "Generating..."
-                : "Generate OpenClaw Invite Prompt"}
+                ? "Se genereaza..."
+                : "Genereaza Prompt Invitatie OpenClaw"}
             </Button>
           </div>
           {inviteError && (
@@ -492,7 +494,7 @@ export function CompanySettings() {
             >
               <div className="flex items-center justify-between gap-2">
                 <div className="text-xs text-muted-foreground">
-                  OpenClaw Invite Prompt
+                  Prompt Invitatie OpenClaw
                 </div>
                 {snippetCopied && (
                   <span
@@ -500,7 +502,7 @@ export function CompanySettings() {
                     className="flex items-center gap-1 text-xs text-green-600 animate-pulse"
                   >
                     <Check className="h-3 w-3" />
-                    Copied
+                    Copiat
                   </span>
                 )}
               </div>
@@ -527,7 +529,7 @@ export function CompanySettings() {
                       }
                     }}
                   >
-                    {snippetCopied ? "Copied snippet" : "Copy snippet"}
+                    {snippetCopied ? "Fragment copiat" : "Copiaza fragment"}
                   </Button>
                 </div>
               </div>
@@ -539,24 +541,24 @@ export function CompanySettings() {
       {/* Import / Export */}
       <div className="space-y-4">
         <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-          Company Packages
+          Pachete Companie
         </div>
         <div className="rounded-md border border-border px-4 py-4">
           <p className="text-sm text-muted-foreground">
-            Import and export have moved to dedicated pages accessible from the{" "}
-            <a href="/org" className="underline hover:text-foreground">Org Chart</a> header.
+            Importul si exportul au fost mutate pe pagini dedicate accesibile din{" "}
+            antetul <a href="/org" className="underline hover:text-foreground">Organigrama</a>.
           </p>
           <div className="mt-3 flex items-center gap-2">
             <Button size="sm" variant="outline" asChild>
               <a href="/company/export">
                 <Download className="mr-1.5 h-3.5 w-3.5" />
-                Export
+                Exporta
               </a>
             </Button>
             <Button size="sm" variant="outline" asChild>
               <a href="/company/import">
                 <Upload className="mr-1.5 h-3.5 w-3.5" />
-                Import
+                Importa
               </a>
             </Button>
           </div>
@@ -566,12 +568,12 @@ export function CompanySettings() {
       {/* Danger Zone */}
       <div className="space-y-4">
         <div className="text-xs font-medium text-destructive uppercase tracking-wide">
-          Danger Zone
+          Zona Periculoasa
         </div>
         <div className="space-y-3 rounded-md border border-destructive/40 bg-destructive/5 px-4 py-4">
           <p className="text-sm text-muted-foreground">
-            Archive this company to hide it from the sidebar. This persists in
-            the database.
+            Arhiveaza aceasta companie pentru a o ascunde din bara laterala. Aceasta actiune persista in
+            baza de date.
           </p>
           <div className="flex items-center gap-2">
             <Button
@@ -584,7 +586,7 @@ export function CompanySettings() {
               onClick={() => {
                 if (!selectedCompanyId) return;
                 const confirmed = window.confirm(
-                  `Archive company "${selectedCompany.name}"? It will be hidden from the sidebar.`
+                  `Arhivezi compania "${selectedCompany.name}"? Va fi ascunsa din bara laterala.`
                 );
                 if (!confirmed) return;
                 const nextCompanyId =
@@ -600,16 +602,16 @@ export function CompanySettings() {
               }}
             >
               {archiveMutation.isPending
-                ? "Archiving..."
+                ? "Se arhiveaza..."
                 : selectedCompany.status === "archived"
-                ? "Already archived"
-                : "Archive company"}
+                ? "Deja arhivata"
+                : "Arhiveaza compania"}
             </Button>
             {archiveMutation.isError && (
               <span className="text-xs text-destructive">
                 {archiveMutation.error instanceof Error
                   ? archiveMutation.error.message
-                  : "Failed to archive company"}
+                  : "Nu s-a putut arhiva compania"}
               </span>
             )}
           </div>

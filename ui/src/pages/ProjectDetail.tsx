@@ -75,21 +75,21 @@ function OverviewContent({
         onSave={(description) => onUpdate({ description })}
         as="p"
         className="text-sm text-muted-foreground"
-        placeholder="Add a description..."
+        placeholder="Adauga o descriere..."
         multiline
         imageUploadHandler={imageUploadHandler}
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
         <div>
-          <span className="text-muted-foreground">Status</span>
+          <span className="text-muted-foreground">Stare</span>
           <div className="mt-1">
             <StatusBadge status={project.status} />
           </div>
         </div>
         {project.targetDate && (
           <div>
-            <span className="text-muted-foreground">Target Date</span>
+            <span className="text-muted-foreground">Data Tinta</span>
             <p>{project.targetDate}</p>
           </div>
         )}
@@ -250,7 +250,7 @@ function ProjectWorkspacesContent({
   });
 
   if (summaries.length === 0) {
-    return <p className="text-sm text-muted-foreground">No non-default workspace activity yet.</p>;
+    return <p className="text-sm text-muted-foreground">Nicio activitate non-implicita in spatiul de lucru inca.</p>;
   }
 
   const activeSummaries = summaries.filter((summary) => summary.executionWorkspaceStatus !== "cleanup_failed");
@@ -408,7 +408,7 @@ function ProjectWorkspacesContent({
         {cleanupFailedSummaries.length > 0 ? (
           <div className="space-y-2">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Cleanup attention needed
+              Necesita atentie la curatare
             </div>
             <div className="overflow-hidden rounded-xl border border-amber-500/20 bg-amber-500/5">
               {cleanupFailedSummaries.map(renderSummaryRow)}
@@ -596,7 +596,7 @@ export function ProjectDetail() {
 
   useEffect(() => {
     setBreadcrumbs([
-      { label: "Projects", href: "/projects" },
+      { label: "Proiecte", href: "/projects" },
       { label: project?.name ?? routeProjectRef ?? "Project" },
     ]);
   }, [setBreadcrumbs, project, routeProjectRef]);
@@ -810,7 +810,7 @@ export function ProjectDetail() {
           {project.pauseReason === "budget" ? (
             <div className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-red-200">
               <span className="h-2 w-2 rounded-full bg-red-400" />
-              Paused by budget hard stop
+              Pauza din cauza limitei de buget
             </div>
           ) : null}
         </div>
@@ -850,11 +850,11 @@ export function ProjectDetail() {
       <Tabs value={activeTab ?? "list"} onValueChange={(value) => handleTabChange(value as ProjectTab)}>
         <PageTabBar
           items={[
-            { value: "list", label: "Issues" },
-            { value: "overview", label: "Overview" },
-            ...(showWorkspacesTab ? [{ value: "workspaces", label: "Workspaces" }] : []),
-            { value: "configuration", label: "Configuration" },
-            { value: "budget", label: "Budget" },
+            { value: "list", label: "Taskuri" },
+            { value: "overview", label: "Prezentare" },
+            ...(showWorkspacesTab ? [{ value: "workspaces", label: "Spatii de lucru" }] : []),
+            { value: "configuration", label: "Configurare" },
+            { value: "budget", label: "Buget" },
             ...pluginTabItems.map((item) => ({
               value: item.value,
               label: item.label,
@@ -894,7 +894,7 @@ export function ProjectDetail() {
             />
           )
         ) : (
-          <p className="text-sm text-muted-foreground">Loading workspaces...</p>
+          <p className="text-sm text-muted-foreground">Se incarca spatiile de lucru...</p>
         )
       ) : null}
 

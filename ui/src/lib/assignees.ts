@@ -77,6 +77,6 @@ export function formatAssigneeUserLabel(
 ): string | null {
   if (!userId) return null;
   if (currentUserId && userId === currentUserId) return "Me";
-  if (userId === "local-board") return "Board";
+  if (userId === "local-board") return "Panou";
   return userId.slice(0, 5);
 }

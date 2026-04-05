@@ -118,7 +118,7 @@ function firstNonEmptyLine(value: string | null | undefined): string | null {
 }
 
 function runFailureMessage(run: HeartbeatRun): string {
-  return firstNonEmptyLine(run.error) ?? firstNonEmptyLine(run.stderrExcerpt) ?? "Run exited with an error.";
+  return firstNonEmptyLine(run.error) ?? firstNonEmptyLine(run.stderrExcerpt) ?? "Rularea s-a incheiat cu o eroare.";
 }
 
 function approvalStatusLabel(status: Approval["status"]): string {
@@ -144,20 +144,20 @@ const trailingIssueColumns: InboxIssueColumn[] = ["assignee", "project", "worksp
 const inboxIssueColumnLabels: Record<InboxIssueColumn, string> = {
   status: "Status",
   id: "ID",
-  assignee: "Assignee",
-  project: "Project",
-  workspace: "Workspace",
-  labels: "Tags",
-  updated: "Last updated",
+  assignee: "Responsabil",
+  project: "Proiect",
+  workspace: "Spatiu de lucru",
+  labels: "Etichete",
+  updated: "Ultima actualizare",
 };
 const inboxIssueColumnDescriptions: Record<InboxIssueColumn, string> = {
-  status: "Issue state chip on the left edge.",
-  id: "Ticket identifier like PAP-1009.",
-  assignee: "Assigned agent or board user.",
-  project: "Linked project pill with its color.",
-  workspace: "Execution or project workspace used for the issue.",
-  labels: "Issue labels and tags.",
-  updated: "Latest visible activity time.",
+  status: "Starea taskului pe marginea stanga.",
+  id: "Identificator ticket, ex. PAP-1009.",
+  assignee: "Agent sau utilizator asignat.",
+  project: "Proiectul asociat cu culoarea sa.",
+  workspace: "Spatiul de lucru folosit pentru task.",
+  labels: "Etichetele taskului.",
+  updated: "Timpul ultimei activitati vizibile.",
 };
 
 export function InboxIssueMetaLeading({
@@ -214,7 +214,7 @@ export function InboxIssueMetaLeading({
 }
 
 function issueActivityText(issue: Issue): string {
-  return `Updated ${timeAgo(issue.lastActivityAt ?? issue.lastExternalCommentAt ?? issue.updatedAt)}`;
+  return `Actualizat ${timeAgo(issue.lastActivityAt ?? issue.lastExternalCommentAt ?? issue.updatedAt)}`;
 }
 
 function issueTrailingGridTemplate(columns: InboxIssueColumn[]): string {
@@ -474,7 +474,7 @@ export function FailedRunInboxRow({
             disabled={isRetrying}
           >
             <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-            {isRetrying ? "Retrying…" : "Retry"}
+            {isRetrying ? "Se reincearca…" : "Reincearca"}
           </Button>
           {!showUnreadSlot && (
             <button
@@ -498,7 +498,7 @@ export function FailedRunInboxRow({
           disabled={isRetrying}
         >
           <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-          {isRetrying ? "Retrying…" : "Retry"}
+          {isRetrying ? "Se reincearca…" : "Reincearca"}
         </Button>
         {!showUnreadSlot && (
           <button
@@ -605,8 +605,8 @@ function ApprovalInboxRow({
             </span>
             <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
               <span className="capitalize">{approvalStatusLabel(approval.status)}</span>
-              {requesterName ? <span>requested by {requesterName}</span> : null}
-              <span>updated {timeAgo(approval.updatedAt)}</span>
+              {requesterName ? <span>solicitat de {requesterName}</span> : null}
+              <span>actualizat {timeAgo(approval.updatedAt)}</span>
             </span>
           </span>
         </Link>
@@ -618,7 +618,7 @@ function ApprovalInboxRow({
               onClick={onApprove}
               disabled={isPending}
             >
-              Approve
+              Aproba
             </Button>
             <Button
               variant="destructive"
@@ -627,7 +627,7 @@ function ApprovalInboxRow({
               onClick={onReject}
               disabled={isPending}
             >
-              Reject
+              Respinge
             </Button>
           </div>
         ) : null}
@@ -640,7 +640,7 @@ function ApprovalInboxRow({
             onClick={onApprove}
             disabled={isPending}
           >
-            Approve
+            Aproba
           </Button>
           <Button
             variant="destructive"
@@ -649,7 +649,7 @@ function ApprovalInboxRow({
             onClick={onReject}
             disabled={isPending}
           >
-            Reject
+            Respinge
           </Button>
         </div>
       ) : null}
@@ -682,8 +682,8 @@ function JoinRequestInboxRow({
 }) {
   const label =
     joinRequest.requestType === "human"
-      ? "Human join request"
-      : `Agent join request${joinRequest.agentName ? `: ${joinRequest.agentName}` : ""}`;
+      ? "Cerere de aderare utilizator"
+      : `Cerere de aderare agent${joinRequest.agentName ? `: ${joinRequest.agentName}` : ""}`;
   const showUnreadSlot = unreadState !== null;
   const showUnreadDot = unreadState === "visible" || unreadState === "fading";
 
@@ -737,8 +737,8 @@ function JoinRequestInboxRow({
               {label}
             </span>
             <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
-              <span>requested {timeAgo(joinRequest.createdAt)} from IP {joinRequest.requestIp}</span>
-              {joinRequest.adapterType && <span>adapter: {joinRequest.adapterType}</span>}
+              <span>solicitat {timeAgo(joinRequest.createdAt)} de la IP {joinRequest.requestIp}</span>
+              {joinRequest.adapterType && <span>adaptor: {joinRequest.adapterType}</span>}
             </span>
           </span>
         </div>
@@ -749,7 +749,7 @@ function JoinRequestInboxRow({
             onClick={onApprove}
             disabled={isPending}
           >
-            Approve
+            Aproba
           </Button>
           <Button
             variant="destructive"
@@ -758,7 +758,7 @@ function JoinRequestInboxRow({
             onClick={onReject}
             disabled={isPending}
           >
-            Reject
+            Respinge
           </Button>
         </div>
       </div>
@@ -814,7 +814,7 @@ export function Inbox() {
   const issueLinkState = useMemo(
     () =>
       createIssueDetailLocationState(
-        "Inbox",
+        "Mesaje",
         `${location.pathname}${location.search}${location.hash}`,
         "inbox",
       ),
@@ -847,7 +847,7 @@ export function Inbox() {
   });
 
   useEffect(() => {
-    setBreadcrumbs([{ label: "Inbox" }]);
+    setBreadcrumbs([{ label: "Mesaje" }]);
   }, [setBreadcrumbs]);
 
   useEffect(() => {
@@ -1572,14 +1572,14 @@ export function Inbox() {
             items={[
               {
                 value: "mine",
-                label: "Mine",
+                label: "Ale mele",
               },
               {
                 value: "recent",
-                label: "Recent",
+                label: "Recente",
               },
-              { value: "unread", label: "Unread" },
-              { value: "all", label: "All" },
+              { value: "unread", label: "Necitite" },
+              { value: "all", label: "Toate" },
             ]}
           />
         </Tabs>
@@ -1589,7 +1589,7 @@ export function Inbox() {
             <Search className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search inbox…"
+              placeholder="Cauta in mesaje…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="h-8 w-[180px] pl-8 text-xs sm:w-[220px]"
@@ -1604,17 +1604,17 @@ export function Inbox() {
                 className="h-8 shrink-0 px-2 text-xs text-muted-foreground hover:text-foreground"
               >
                 <Columns3 className="mr-1 h-3.5 w-3.5" />
-                Show / hide columns
+                Arata / ascunde coloane
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[300px] rounded-xl border-border/70 p-1.5 shadow-xl shadow-black/10">
               <DropdownMenuLabel className="px-2 pb-1 pt-1.5">
                 <div className="space-y-1">
                   <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                    Desktop issue rows
+                    Randuri taskuri desktop
                   </div>
                   <div className="text-sm font-medium text-foreground">
-                    Choose which inbox columns stay visible
+                    Alege ce coloane raman vizibile
                   </div>
                 </div>
               </DropdownMenuLabel>
@@ -1642,7 +1642,7 @@ export function Inbox() {
                 onSelect={() => setIssueColumns(DEFAULT_INBOX_ISSUE_COLUMNS)}
                 className="rounded-lg px-3 py-2 text-sm"
               >
-                Reset defaults
+                Reseteaza implicite
                 <span className="ml-auto text-xs text-muted-foreground">status, id, updated</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -1657,19 +1657,19 @@ export function Inbox() {
                 onClick={() => setShowMarkAllReadConfirm(true)}
                 disabled={markAllReadMutation.isPending}
               >
-                {markAllReadMutation.isPending ? "Marking…" : "Mark all as read"}
+                {markAllReadMutation.isPending ? "Se marcheaza…" : "Marcheaza tot ca citit"}
               </Button>
               <Dialog open={showMarkAllReadConfirm} onOpenChange={setShowMarkAllReadConfirm}>
                 <DialogContent className="sm:max-w-md">
                   <DialogHeader>
-                    <DialogTitle>Mark all as read?</DialogTitle>
+                    <DialogTitle>Marcheaza tot ca citit?</DialogTitle>
                     <DialogDescription>
-                      This will mark {unreadIssueIds.length} unread {unreadIssueIds.length === 1 ? "item" : "items"} as read.
+                      Se vor marca {unreadIssueIds.length} {unreadIssueIds.length === 1 ? "element necitit" : "elemente necitite"} ca citite.
                     </DialogDescription>
                   </DialogHeader>
                   <DialogFooter>
                     <Button variant="outline" onClick={() => setShowMarkAllReadConfirm(false)}>
-                      Cancel
+                      Anuleaza
                     </Button>
                     <Button
                       onClick={() => {
@@ -1677,7 +1677,7 @@ export function Inbox() {
                         markAllReadMutation.mutate(unreadIssueIds);
                       }}
                     >
-                      Mark all as read
+                      Marcheaza tot ca citit
                     </Button>
                   </DialogFooter>
                 </DialogContent>
@@ -1694,15 +1694,15 @@ export function Inbox() {
             onValueChange={(value) => setAllCategoryFilter(value as InboxCategoryFilter)}
           >
             <SelectTrigger className="h-8 w-[170px] text-xs">
-              <SelectValue placeholder="Category" />
+              <SelectValue placeholder="Categorie" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="everything">All categories</SelectItem>
-              <SelectItem value="issues_i_touched">My recent issues</SelectItem>
-              <SelectItem value="join_requests">Join requests</SelectItem>
-              <SelectItem value="approvals">Approvals</SelectItem>
-              <SelectItem value="failed_runs">Failed runs</SelectItem>
-              <SelectItem value="alerts">Alerts</SelectItem>
+              <SelectItem value="everything">Toate categoriile</SelectItem>
+              <SelectItem value="issues_i_touched">Taskurile mele recente</SelectItem>
+              <SelectItem value="join_requests">Cereri de aderare</SelectItem>
+              <SelectItem value="approvals">Aprobari</SelectItem>
+              <SelectItem value="failed_runs">Rulari esuate</SelectItem>
+              <SelectItem value="alerts">Alerte</SelectItem>
             </SelectContent>
           </Select>
 
@@ -1712,12 +1712,12 @@ export function Inbox() {
               onValueChange={(value) => setAllApprovalFilter(value as InboxApprovalFilter)}
             >
               <SelectTrigger className="h-8 w-[170px] text-xs">
-                <SelectValue placeholder="Approval status" />
+                <SelectValue placeholder="Status aprobare" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All approval statuses</SelectItem>
-                <SelectItem value="actionable">Needs action</SelectItem>
-                <SelectItem value="resolved">Resolved</SelectItem>
+                <SelectItem value="all">Toate statusurile</SelectItem>
+                <SelectItem value="actionable">Necesita actiune</SelectItem>
+                <SelectItem value="resolved">Rezolvate</SelectItem>
               </SelectContent>
             </Select>
           )}
@@ -1736,14 +1736,14 @@ export function Inbox() {
           icon={searchQuery.trim() ? Search : InboxIcon}
           message={
             searchQuery.trim()
-              ? "No inbox items match your search."
+              ? "Niciun element nu corespunde cautarii."
               : tab === "mine"
-              ? "Inbox zero."
+              ? "Inbox gol."
               : tab === "unread"
-              ? "No new inbox items."
+              ? "Niciun element nou."
               : tab === "recent"
-                ? "No recent inbox items."
-                : "No inbox items match these filters."
+                ? "Niciun element recent."
+                : "Niciun element nu corespunde filtrelor."
           }
         />
       )}
@@ -1776,7 +1776,7 @@ export function Inbox() {
                     <div key="today-divider" className="flex items-center gap-3 px-4 my-2">
                       <div className="flex-1 border-t border-zinc-600" />
                       <span className="shrink-0 text-[11px] font-medium uppercase tracking-wider text-zinc-500">
-                        Earlier
+                        Mai devreme
                       </span>
                     </div>,
                   );
@@ -1969,7 +1969,7 @@ export function Inbox() {
           {showSeparatorBefore("alerts") && <Separator />}
           <div>
             <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-              Alerts
+              Alerte
             </h3>
             <div className="divide-y divide-border border border-border">
               {showAggregateAgentError && (
@@ -1981,7 +1981,7 @@ export function Inbox() {
                     <AlertTriangle className="h-4 w-4 shrink-0 text-red-600 dark:text-red-400" />
                     <span className="text-sm">
                       <span className="font-medium">{dashboard!.agents.error}</span>{" "}
-                      {dashboard!.agents.error === 1 ? "agent has" : "agents have"} errors
+                      {dashboard!.agents.error === 1 ? "agent are" : "agenti au"} erori
                     </span>
                   </Link>
                   <button
@@ -2002,9 +2002,9 @@ export function Inbox() {
                   >
                     <AlertTriangle className="h-4 w-4 shrink-0 text-yellow-400" />
                     <span className="text-sm">
-                      Budget at{" "}
+                      Buget la{" "}
                       <span className="font-medium">{dashboard!.costs.monthUtilizationPercent}%</span>{" "}
-                      utilization this month
+                      utilizare luna aceasta
                     </span>
                   </Link>
                   <button

@@ -13,7 +13,7 @@ export function InstanceExperimentalSettings() {
 
   useEffect(() => {
     setBreadcrumbs([
-      { label: "Instance Settings" },
+      { label: "Setari Instanta" },
       { label: "Experimental" },
     ]);
   }, [setBreadcrumbs]);
@@ -39,7 +39,7 @@ export function InstanceExperimentalSettings() {
   });
 
   if (experimentalQuery.isLoading) {
-    return <div className="text-sm text-muted-foreground">Loading experimental settings...</div>;
+    return <div className="text-sm text-muted-foreground">Se incarca setarile experimentale...</div>;
   }
 
   if (experimentalQuery.error) {
@@ -63,7 +63,7 @@ export function InstanceExperimentalSettings() {
           <h1 className="text-lg font-semibold">Experimental</h1>
         </div>
         <p className="text-sm text-muted-foreground">
-          Opt into features that are still being evaluated before they become default behavior.
+          Activeaza functionalitati care sunt inca in evaluare inainte de a deveni comportament implicit.
         </p>
       </div>
 
@@ -76,17 +76,17 @@ export function InstanceExperimentalSettings() {
       <section className="rounded-xl border border-border bg-card p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1.5">
-            <h2 className="text-sm font-semibold">Enable Isolated Workspaces</h2>
+            <h2 className="text-sm font-semibold">Activeaza Spatii de Lucru Izolate</h2>
             <p className="max-w-2xl text-sm text-muted-foreground">
-              Show execution workspace controls in project configuration and allow isolated workspace behavior for new
-              and existing issue runs.
+              Afiseaza controalele spatiului de lucru de executie in configurarea proiectului si permite comportamentul de spatiu de lucru
+              izolat pentru rulari noi si existente ale sarcinilor.
             </p>
           </div>
           <ToggleSwitch
             checked={enableIsolatedWorkspaces}
             onCheckedChange={() => toggleMutation.mutate({ enableIsolatedWorkspaces: !enableIsolatedWorkspaces })}
             disabled={toggleMutation.isPending}
-            aria-label="Toggle isolated workspaces experimental setting"
+            aria-label="Comuta setarea experimentala a spatiilor de lucru izolate"
           />
         </div>
       </section>
@@ -94,17 +94,17 @@ export function InstanceExperimentalSettings() {
       <section className="rounded-xl border border-border bg-card p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1.5">
-            <h2 className="text-sm font-semibold">Auto-Restart Dev Server When Idle</h2>
+            <h2 className="text-sm font-semibold">Repornire Automata Server Dev Cand E Inactiv</h2>
             <p className="max-w-2xl text-sm text-muted-foreground">
-              In `pnpm dev:once`, wait for all queued and running local agent runs to finish, then restart the server
-              automatically when backend changes or migrations make the current boot stale.
+              In `pnpm dev:once`, asteapta ca toate rularile locale de agenti in coada si in curs sa se termine, apoi reporneste serverul
+              automat cand modificarile backend sau migrarile fac boot-ul curent invechit.
             </p>
           </div>
           <ToggleSwitch
             checked={autoRestartDevServerWhenIdle}
             onCheckedChange={() => toggleMutation.mutate({ autoRestartDevServerWhenIdle: !autoRestartDevServerWhenIdle })}
             disabled={toggleMutation.isPending}
-            aria-label="Toggle guarded dev-server auto-restart"
+            aria-label="Comuta repornirea automata protejata a serverului dev"
           />
         </div>
       </section>

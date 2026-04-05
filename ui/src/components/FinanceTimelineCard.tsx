@@ -16,13 +16,13 @@ interface FinanceTimelineCardProps {
 
 export function FinanceTimelineCard({
   rows,
-  emptyMessage = "No financial events in this period.",
+  emptyMessage = "Niciun eveniment financiar in aceasta perioada.",
 }: FinanceTimelineCardProps) {
   return (
     <Card>
       <CardHeader className="px-4 pt-4 pb-1">
-        <CardTitle className="text-base">Recent financial events</CardTitle>
-        <CardDescription>Top-ups, fees, credits, commitments, and other non-request charges.</CardDescription>
+        <CardTitle className="text-base">Evenimente financiare recente</CardTitle>
+        <CardDescription>Alimentari, taxe, credite, angajamente si alte taxe non-request.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-3 px-4 pb-4 pt-3">
         {rows.length === 0 ? (

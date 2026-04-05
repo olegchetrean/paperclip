@@ -248,20 +248,20 @@ function RoutineListRow({
               disabled={runningRoutineId === routine.id || isArchived}
               onClick={() => onRunNow(routine)}
             >
-              {runningRoutineId === routine.id ? "Running..." : "Run now"}
+              {runningRoutineId === routine.id ? "Se ruleaza..." : "Ruleaza acum"}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => onToggleEnabled(routine, enabled)}
               disabled={isStatusPending || isArchived}
             >
-              {enabled ? "Pause" : "Enable"}
+              {enabled ? "Pauza" : "Activeaza"}
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => onToggleArchived(routine)}
               disabled={isStatusPending}
             >
-              {routine.status === "archived" ? "Restore" : "Archive"}
+              {routine.status === "archived" ? "Restaureaza" : "Arhiveaza"}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -312,7 +312,7 @@ export function Routines() {
   const [routineViewState, setRoutineViewState] = useState<RoutineViewState>(() => getRoutineViewState(routineViewStateKey));
 
   useEffect(() => {
-    setBreadcrumbs([{ label: "Routines" }]);
+    setBreadcrumbs([{ label: "Rutine" }]);
   }, [setBreadcrumbs]);
 
   useEffect(() => {
@@ -376,8 +376,8 @@ export function Routines() {
       setAdvancedOpen(false);
       await queryClient.invalidateQueries({ queryKey: queryKeys.routines.list(selectedCompanyId!) });
       pushToast({
-        title: "Routine created",
-        body: "Add the first trigger to turn it into a live workflow.",
+        title: "Rutina creata",
+        body: "Adauga primul trigger pentru a o transforma intr-un flux de lucru activ.",
         tone: "success",
       });
       navigate(`/routines/${routine.id}?tab=triggers`);
@@ -407,8 +407,8 @@ export function Routines() {
     },
     onError: (mutationError) => {
       pushToast({
-        title: "Failed to update routine",
-        body: mutationError instanceof Error ? mutationError.message : "Paperclip could not update the routine.",
+        title: "Actualizare rutina esuata",
+        body: mutationError instanceof Error ? mutationError.message : "Paperclip nu a putut actualiza rutina.",
         tone: "error",
       });
     },
@@ -440,8 +440,8 @@ export function Routines() {
     },
     onError: (mutationError) => {
       pushToast({
-        title: "Routine run failed",
-        body: mutationError instanceof Error ? mutationError.message : "Paperclip could not start the routine run.",
+        title: "Rulare rutina esuata",
+        body: mutationError instanceof Error ? mutationError.message : "Paperclip nu a putut porni rularea rutinei.",
         tone: "error",
       });
     },
@@ -545,7 +545,7 @@ export function Routines() {
   }
 
   if (!selectedCompanyId) {
-    return <EmptyState icon={Repeat} message="Select a company to view routines." />;
+    return <EmptyState icon={Repeat} message="Selecteaza o companie pentru a vedea rutinele." />;
   }
 
   if (isLoading) {
@@ -557,16 +557,16 @@ export function Routines() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight flex items-center gap-2">
-            Routines
+            Rutine
             <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">Beta</span>
           </h1>
           <p className="text-sm text-muted-foreground">
-            Recurring work definitions that materialize into auditable execution issues.
+            Definitii de munca recurenta care se materializeaza in taskuri de executie auditabile.
           </p>
         </div>
         <Button onClick={() => setComposerOpen(true)}>
           <Plus className="mr-2 h-4 w-4" />
-          Create routine
+          Creeaza rutina
         </Button>
       </div>
 
@@ -576,14 +576,14 @@ export function Routines() {
           value={activeTab}
           onValueChange={handleTabChange}
           items={[
-            { value: "routines", label: "Routines" },
-            { value: "runs", label: "Recent Runs" },
+            { value: "routines", label: "Rutine" },
+            { value: "runs", label: "Rulari Recente" },
           ]}
         />
         <TabsContent value="routines" className="space-y-4">
           <div className="flex items-center justify-between gap-3">
             <p className="text-sm text-muted-foreground">
-              {(routines ?? []).length} routine{(routines ?? []).length === 1 ? "" : "s"}
+              {(routines ?? []).length} rutina{(routines ?? []).length === 1 ? "" : "e"}
             </p>
             <Popover>
               <PopoverTrigger asChild>
@@ -646,9 +646,9 @@ export function Routines() {
         >
           <div className="shrink-0 flex flex-wrap items-center justify-between gap-3 border-b border-border/60 px-5 py-3">
             <div>
-              <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">New routine</p>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">Rutina noua</p>
               <p className="text-sm text-muted-foreground">
-                Define the recurring work first. Trigger setup comes next on the detail page.
+                Defineste munca recurenta intai. Configurarea triggerului urmeaza pe pagina de detalii.
               </p>
             </div>
             <Button
@@ -660,7 +660,7 @@ export function Routines() {
               }}
               disabled={createRoutine.isPending}
             >
-              Cancel
+              Anuleaza
             </Button>
           </div>
 
@@ -669,7 +669,7 @@ export function Routines() {
               <textarea
                 ref={titleInputRef}
                 className="w-full resize-none overflow-hidden bg-transparent text-xl font-semibold outline-none placeholder:text-muted-foreground/50"
-                placeholder="Routine title"
+                placeholder="Titlu rutina"
                 rows={1}
                 value={draft.title}
                 onChange={(event) => {
@@ -794,7 +794,7 @@ export function Routines() {
                 ref={descriptionEditorRef}
                 value={draft.description}
                 onChange={(description) => setDraft((current) => ({ ...current, description }))}
-                placeholder="Add instructions..."
+                placeholder="Adauga instructiuni..."
                 bordered={false}
                 contentClassName="min-h-[160px] text-sm text-muted-foreground"
                 onSubmit={() => {

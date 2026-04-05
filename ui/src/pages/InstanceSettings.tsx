@@ -33,7 +33,7 @@ export function InstanceSettings() {
 
   useEffect(() => {
     setBreadcrumbs([
-      { label: "Instance Settings" },
+      { label: "Setari Instanta" },
       { label: "Heartbeats" },
     ]);
   }, [setBreadcrumbs]);
@@ -150,7 +150,7 @@ export function InstanceSettings() {
   }, [agents]);
 
   if (heartbeatsQuery.isLoading) {
-    return <div className="text-sm text-muted-foreground">Loading scheduler heartbeats...</div>;
+    return <div className="text-sm text-muted-foreground">Se incarca heartbeat-urile planificatorului...</div>;
   }
 
   if (heartbeatsQuery.error) {
@@ -168,17 +168,17 @@ export function InstanceSettings() {
       <div className="space-y-2">
         <div className="flex items-center gap-2">
           <Settings className="h-5 w-5 text-muted-foreground" />
-          <h1 className="text-lg font-semibold">Scheduler Heartbeats</h1>
+          <h1 className="text-lg font-semibold">Heartbeat-uri Planificator</h1>
         </div>
         <p className="text-sm text-muted-foreground">
-          Agents with a timer heartbeat enabled across all of your companies.
+          Agenti cu heartbeat de tip timer activat in toate companiile tale.
         </p>
       </div>
 
       <div className="flex items-center gap-4 text-sm text-muted-foreground">
-        <span><span className="font-semibold text-foreground">{activeCount}</span> active</span>
-        <span><span className="font-semibold text-foreground">{disabledCount}</span> disabled</span>
-        <span><span className="font-semibold text-foreground">{grouped.length}</span> {grouped.length === 1 ? "company" : "companies"}</span>
+        <span><span className="font-semibold text-foreground">{activeCount}</span> activi</span>
+        <span><span className="font-semibold text-foreground">{disabledCount}</span> dezactivati</span>
+        <span><span className="font-semibold text-foreground">{grouped.length}</span> {grouped.length === 1 ? "companie" : "companii"}</span>
         {anyEnabled && (
           <Button
             variant="destructive"
@@ -193,7 +193,7 @@ export function InstanceSettings() {
               disableAllMutation.mutate(agents);
             }}
           >
-            {disableAllMutation.isPending ? "Disabling..." : "Disable All"}
+            {disableAllMutation.isPending ? "Se dezactiveaza..." : "Dezactiveaza Tot"}
           </Button>
         )}
       </div>
@@ -207,7 +207,7 @@ export function InstanceSettings() {
       {agents.length === 0 ? (
         <EmptyState
           icon={Clock3}
-          message="No scheduler heartbeats match the current criteria."
+          message="Niciun heartbeat al planificatorului nu corespunde criteriilor curente."
         />
       ) : (
         <div className="space-y-4">
@@ -255,7 +255,7 @@ export function InstanceSettings() {
                           <Link
                             to={buildAgentHref(agent)}
                             className="text-muted-foreground hover:text-foreground"
-                            title="Full agent config"
+                            title="Configuratie completa agent"
                           >
                             <ExternalLink className="h-3.5 w-3.5" />
                           </Link>
@@ -266,7 +266,7 @@ export function InstanceSettings() {
                             disabled={saving}
                             onClick={() => toggleMutation.mutate(agent)}
                           >
-                            {saving ? "..." : agent.heartbeatEnabled ? "Disable Timer Heartbeat" : "Enable Timer Heartbeat"}
+                            {saving ? "..." : agent.heartbeatEnabled ? "Dezactiveaza Heartbeat Timer" : "Activeaza Heartbeat Timer"}
                           </Button>
                         </span>
                       </div>

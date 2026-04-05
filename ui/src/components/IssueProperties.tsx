@@ -244,7 +244,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
   ) : (
     <>
       <Tag className="h-3.5 w-3.5 text-muted-foreground" />
-      <span className="text-sm text-muted-foreground">No labels</span>
+      <span className="text-sm text-muted-foreground">Fara etichete</span>
     </>
   );
 
@@ -252,7 +252,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
     <>
       <input
         className="w-full px-2 py-1.5 text-xs bg-transparent outline-none border-b border-border mb-1 placeholder:text-muted-foreground/50"
-        placeholder="Search labels..."
+        placeholder="Cauta etichete..."
         value={labelSearch}
         onChange={(e) => setLabelSearch(e.target.value)}
         autoFocus={!inline}
@@ -299,7 +299,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
           />
           <input
             className="flex-1 px-2 py-1.5 text-xs bg-transparent outline-none rounded placeholder:text-muted-foreground/50"
-            placeholder="New label"
+            placeholder="Eticheta noua"
             value={newLabelName}
             onChange={(e) => setNewLabelName(e.target.value)}
           />
@@ -315,7 +315,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
           }
         >
           <Plus className="h-3 w-3" />
-          {createLabel.isPending ? "Creating…" : "Create label"}
+          {createLabel.isPending ? "Se creeaza…" : "Creeaza eticheta"}
         </button>
       </div>
     </>
@@ -331,7 +331,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
   ) : (
     <>
       <User className="h-3.5 w-3.5 text-muted-foreground" />
-      <span className="text-sm text-muted-foreground">Unassigned</span>
+      <span className="text-sm text-muted-foreground">Neasignat</span>
     </>
   );
 
@@ -339,7 +339,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
     <>
       <input
         className="w-full px-2 py-1.5 text-xs bg-transparent outline-none border-b border-border mb-1 placeholder:text-muted-foreground/50"
-        placeholder="Search assignees..."
+        placeholder="Cauta asignati..."
         value={assigneeSearch}
         onChange={(e) => setAssigneeSearch(e.target.value)}
         autoFocus={!inline}
@@ -352,7 +352,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
           )}
           onClick={() => { onUpdate({ assigneeAgentId: null, assigneeUserId: null }); setAssigneeOpen(false); }}
         >
-          No assignee
+          Fara asignat
         </button>
         {currentUserId && (
           <button
@@ -366,7 +366,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
             }}
           >
             <User className="h-3 w-3 shrink-0 text-muted-foreground" />
-            Assign to me
+            Asigneaza-mi mie
           </button>
         )}
         {issue.createdByUserId && issue.createdByUserId !== currentUserId && (
@@ -381,7 +381,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
             }}
           >
             <User className="h-3 w-3 shrink-0 text-muted-foreground" />
-            {creatorUserLabel ? `Assign to ${creatorUserLabel}` : "Assign to requester"}
+            {creatorUserLabel ? `Asigneaza lui ${creatorUserLabel}` : "Asigneaza solicitantului"}
           </button>
         )}
         {sortedAgents
@@ -418,7 +418,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
   ) : (
     <>
       <Hexagon className="h-3.5 w-3.5 text-muted-foreground" />
-      <span className="text-sm text-muted-foreground">No project</span>
+      <span className="text-sm text-muted-foreground">Fara proiect</span>
     </>
   );
 
@@ -426,7 +426,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
     <>
       <input
         className="w-full px-2 py-1.5 text-xs bg-transparent outline-none border-b border-border mb-1 placeholder:text-muted-foreground/50"
-        placeholder="Search projects..."
+        placeholder="Cauta proiecte..."
         value={projectSearch}
         onChange={(e) => setProjectSearch(e.target.value)}
         autoFocus={!inline}
@@ -448,7 +448,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
             setProjectOpen(false);
           }}
         >
-          No project
+          Fara proiect
         </button>
         {orderedProjects
           .filter((p) => {
@@ -491,7 +491,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
   return (
     <div className="space-y-4">
       <div className="space-y-1">
-        <PropertyRow label="Status">
+        <PropertyRow label="Stare">
           <StatusIcon
             status={issue.status}
             onChange={(status) => onUpdate({ status })}
@@ -499,7 +499,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
           />
         </PropertyRow>
 
-        <PropertyRow label="Priority">
+        <PropertyRow label="Prioritate">
           <PriorityIcon
             priority={issue.priority}
             onChange={(priority) => onUpdate({ priority })}
@@ -509,7 +509,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
 
         <PropertyPicker
           inline={inline}
-          label="Labels"
+          label="Etichete"
           open={labelsOpen}
           onOpenChange={(open) => { setLabelsOpen(open); if (!open) setLabelSearch(""); }}
           triggerContent={labelsTrigger}
@@ -521,7 +521,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
 
         <PropertyPicker
           inline={inline}
-          label="Assignee"
+          label="Asignat"
           open={assigneeOpen}
           onOpenChange={(open) => { setAssigneeOpen(open); if (!open) setAssigneeSearch(""); }}
           triggerContent={assigneeTrigger}
@@ -541,7 +541,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
 
         <PropertyPicker
           inline={inline}
-          label="Project"
+          label="Proiect"
           open={projectOpen}
           onOpenChange={(open) => { setProjectOpen(open); if (!open) setProjectSearch(""); }}
           triggerContent={projectTrigger}
@@ -561,7 +561,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
         </PropertyPicker>
 
         {issue.parentId && (
-          <PropertyRow label="Parent">
+          <PropertyRow label="Parinte">
             <Link
               to={`/issues/${issue.ancestors?.[0]?.identifier ?? issue.parentId}`}
               className="text-sm hover:underline"
@@ -572,7 +572,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
         )}
 
         {issue.requestDepth > 0 && (
-          <PropertyRow label="Depth">
+          <PropertyRow label="Adancime">
             <span className="text-sm font-mono">{issue.requestDepth}</span>
           </PropertyRow>
         )}
@@ -582,7 +582,7 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
 
       <div className="space-y-1">
         {(issue.createdByAgentId || issue.createdByUserId) && (
-          <PropertyRow label="Created by">
+          <PropertyRow label="Creat de">
             {issue.createdByAgentId ? (
               <Link
                 to={`/agents/${issue.createdByAgentId}`}
@@ -599,19 +599,19 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
           </PropertyRow>
         )}
         {issue.startedAt && (
-          <PropertyRow label="Started">
+          <PropertyRow label="Inceput">
             <span className="text-sm">{formatDate(issue.startedAt)}</span>
           </PropertyRow>
         )}
         {issue.completedAt && (
-          <PropertyRow label="Completed">
+          <PropertyRow label="Finalizat">
             <span className="text-sm">{formatDate(issue.completedAt)}</span>
           </PropertyRow>
         )}
-        <PropertyRow label="Created">
+        <PropertyRow label="Creat">
           <span className="text-sm">{formatDate(issue.createdAt)}</span>
         </PropertyRow>
-        <PropertyRow label="Updated">
+        <PropertyRow label="Actualizat">
           <span className="text-sm">{timeAgo(issue.updatedAt)}</span>
         </PropertyRow>
       </div>

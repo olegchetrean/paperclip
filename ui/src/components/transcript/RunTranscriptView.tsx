@@ -279,12 +279,12 @@ function isCommandTool(name: string, input: unknown): boolean {
 }
 
 function displayToolName(name: string, input: unknown): string {
-  if (isCommandTool(name, input)) return "Executing command";
+  if (isCommandTool(name, input)) return "Comanda executata";
   return humanizeLabel(name);
 }
 
 function summarizeToolResult(result: string | undefined, isError: boolean | undefined, density: TranscriptDensity): string {
-  if (!result) return isError ? "Tool failed" : "Waiting for result";
+  if (!result) return isError ? "Unealta esuata" : "Se asteapta rezultatul";
   const structured = parseStructuredToolResult(result);
   if (structured) {
     if (structured.body) {

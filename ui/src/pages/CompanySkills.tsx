@@ -172,13 +172,13 @@ function shortRef(ref: string | null | undefined) {
 
 function formatProjectScanSummary(result: CompanySkillProjectScanResult) {
   const parts = [
-    `${result.discovered} found`,
-    `${result.imported.length} imported`,
-    `${result.updated.length} updated`,
+    `${result.discovered} gasite`,
+    `${result.imported.length} importate`,
+    `${result.updated.length} actualizate`,
   ];
-  if (result.conflicts.length > 0) parts.push(`${result.conflicts.length} conflicts`);
-  if (result.skipped.length > 0) parts.push(`${result.skipped.length} skipped`);
-  return `${parts.join(", ")} across ${result.scannedWorkspaces} workspace${result.scannedWorkspaces === 1 ? "" : "s"}.`;
+  if (result.conflicts.length > 0) parts.push(`${result.conflicts.length} conflicte`);
+  if (result.skipped.length > 0) parts.push(`${result.skipped.length} sarite`);
+  return `${parts.join(", ")} in ${result.scannedWorkspaces} spatiu${result.scannedWorkspaces === 1 ? "" : "ri"} de lucru.`;
 }
 
 function fileIcon(kind: CompanySkillFileInventoryEntry["kind"]) {
@@ -259,31 +259,31 @@ function NewSkillForm({
         <Input
           value={name}
           onChange={(event) => setName(event.target.value)}
-          placeholder="Skill name"
+          placeholder="Numele abilitatii"
           className="h-9 rounded-none border-0 border-b border-border px-0 shadow-none focus-visible:ring-0"
         />
         <Input
           value={slug}
           onChange={(event) => setSlug(event.target.value)}
-          placeholder="optional-shortname"
+          placeholder="prescurtare-optionala"
           className="h-9 rounded-none border-0 border-b border-border px-0 shadow-none focus-visible:ring-0"
         />
         <Textarea
           value={description}
           onChange={(event) => setDescription(event.target.value)}
-          placeholder="Short description"
+          placeholder="Descriere scurta"
           className="min-h-20 rounded-none border-0 border-b border-border px-0 shadow-none focus-visible:ring-0"
         />
         <div className="flex items-center justify-end gap-2">
           <Button variant="ghost" size="sm" onClick={onCancel} disabled={isPending}>
-            Cancel
+            Anuleaza
           </Button>
           <Button
             size="sm"
             onClick={() => onCreate({ name, slug: slug || null, description: description || null })}
             disabled={isPending || name.trim().length === 0}
           >
-            {isPending ? "Creating..." : "Create skill"}
+            {isPending ? "Se creeaza..." : "Creeaza abilitate"}
           </Button>
         </div>
       </div>
@@ -410,7 +410,7 @@ function SkillList({
   if (filteredSkills.length === 0) {
     return (
       <div className="px-4 py-6 text-sm text-muted-foreground">
-        No skills match this filter.
+        Nicio abilitate nu corespunde acestui filtru.
       </div>
     );
   }
@@ -534,7 +534,7 @@ function SkillPane({
     return (
       <EmptyState
         icon={Boxes}
-        message="Select a skill to inspect its files."
+        message="Selecteaza o abilitate pentru a-i inspecta fisierele."
       />
     );
   }
@@ -565,7 +565,7 @@ function SkillPane({
               onClick={() => setEditMode(!editMode)}
             >
               <Pencil className="h-3.5 w-3.5" />
-              {editMode ? "Stop editing" : "Edit"}
+              {editMode ? "Opreste editarea" : "Editeaza"}
             </button>
           ) : (
             <div className="text-sm text-muted-foreground">{detail.editableReason}</div>
@@ -575,7 +575,7 @@ function SkillPane({
         <div className="mt-4 space-y-3 border-t border-border pt-4 text-sm">
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <div className="flex items-center gap-2">
-              <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Source</span>
+              <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Sursa</span>
               <span className="flex items-center gap-2">
                 <SourceIcon className="h-3.5 w-3.5 text-muted-foreground" />
                 {detail.sourcePath ? (
@@ -583,7 +583,7 @@ function SkillPane({
                     className="truncate hover:text-foreground text-muted-foreground transition-colors cursor-pointer"
                     onClick={() => {
                       navigator.clipboard.writeText(detail.sourcePath!);
-                      pushToast({ title: "Copied path to workspace" });
+                      pushToast({ title: "Cale copiata in clipboard" });
                     }}
                   >
                     {source.label}
@@ -595,10 +595,10 @@ function SkillPane({
             </div>
             {detail.sourceType === "github" && (
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Pin</span>
-                <span className="font-mono text-xs">{currentPin ?? "untracked"}</span>
+                <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Fixare</span>
+                <span className="font-mono text-xs">{currentPin ?? "neurmarit"}</span>
                 {updateStatus?.trackingRef && (
-                  <span className="text-xs text-muted-foreground">tracking {updateStatus.trackingRef}</span>
+                  <span className="text-xs text-muted-foreground">urmareste {updateStatus.trackingRef}</span>
                 )}
                 <Button
                   variant="ghost"
@@ -607,7 +607,7 @@ function SkillPane({
                   disabled={checkUpdatesPending || updateStatusLoading}
                 >
                   <RefreshCw className={cn("mr-1.5 h-3.5 w-3.5", (checkUpdatesPending || updateStatusLoading) && "animate-spin")} />
-                  Check for updates
+                  Verifica actualizari
                 </Button>
                 {updateStatus?.supported && updateStatus.hasUpdate && (
                   <Button
@@ -616,11 +616,11 @@ function SkillPane({
                     disabled={installUpdatePending}
                   >
                     <RefreshCw className={cn("mr-1.5 h-3.5 w-3.5", installUpdatePending && "animate-spin")} />
-                    Install update{latestPin ? ` ${latestPin}` : ""}
+                    Instaleaza actualizare{latestPin ? ` ${latestPin}` : ""}
                   </Button>
                 )}
                 {updateStatus?.supported && !updateStatus.hasUpdate && !updateStatusLoading && (
-                  <span className="text-xs text-muted-foreground">Up to date</span>
+                  <span className="text-xs text-muted-foreground">La zi</span>
                 )}
                 {!updateStatus?.supported && updateStatus?.reason && (
                   <span className="text-xs text-muted-foreground">{updateStatus.reason}</span>
@@ -628,18 +628,18 @@ function SkillPane({
               </div>
             )}
             <div className="flex items-center gap-2">
-              <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Key</span>
+              <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Cheie</span>
               <span className="font-mono text-xs">{detail.key}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Mode</span>
-              <span>{detail.editable ? "Editable" : "Read only"}</span>
+              <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Mod</span>
+              <span>{detail.editable ? "Editabil" : "Doar citire"}</span>
             </div>
           </div>
           <div className="flex flex-wrap items-start gap-x-3 gap-y-1">
-            <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Used by</span>
+            <span className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Folosit de</span>
             {usedBy.length === 0 ? (
-              <span className="text-muted-foreground">No agents attached</span>
+              <span className="text-muted-foreground">Niciun agent atasat</span>
             ) : (
               <div className="flex flex-wrap gap-x-3 gap-y-1">
                 {usedBy.map((agent) => (
@@ -671,7 +671,7 @@ function SkillPane({
                 >
                   <span className="flex items-center gap-1.5">
                     <Eye className="h-3.5 w-3.5" />
-                    View
+                    Vizualizare
                   </span>
                 </button>
                 <button
@@ -680,7 +680,7 @@ function SkillPane({
                 >
                   <span className="flex items-center gap-1.5">
                     <Code2 className="h-3.5 w-3.5" />
-                    Code
+                    Cod
                   </span>
                 </button>
               </div>
@@ -688,11 +688,11 @@ function SkillPane({
             {editMode && file?.editable && (
               <>
                 <Button variant="ghost" size="sm" onClick={() => setEditMode(false)} disabled={savePending}>
-                  Cancel
+                  Anuleaza
                 </Button>
                 <Button size="sm" onClick={onSave} disabled={savePending}>
                   <Save className="mr-1.5 h-3.5 w-3.5" />
-                  {savePending ? "Saving..." : "Save"}
+                  {savePending ? "Se salveaza..." : "Salveaza"}
                 </Button>
               </>
             )}
@@ -704,7 +704,7 @@ function SkillPane({
         {fileLoading ? (
           <PageSkeleton variant="detail" />
         ) : !file ? (
-          <div className="text-sm text-muted-foreground">Select a file to inspect.</div>
+          <div className="text-sm text-muted-foreground">Selecteaza un fisier pentru inspectie.</div>
         ) : editMode && file.editable ? (
           file.markdown ? (
             <MarkdownEditor
@@ -757,8 +757,8 @@ export function CompanySkills() {
 
   useEffect(() => {
     setBreadcrumbs([
-      { label: "Skills", href: "/skills" },
-      ...(routeSkillId ? [{ label: "Detail" }] : []),
+      { label: "Abilitati", href: "/skills" },
+      ...(routeSkillId ? [{ label: "Detalii" }] : []),
     ]);
   }, [routeSkillId, setBreadcrumbs]);
 
@@ -855,19 +855,19 @@ export function CompanySkills() {
       if (result.imported[0]) navigate(skillRoute(result.imported[0].id));
       pushToast({
         tone: "success",
-        title: "Skills imported",
-        body: `${result.imported.length} skill${result.imported.length === 1 ? "" : "s"} added.`,
+        title: "Abilitati importate",
+        body: `${result.imported.length} abilitat${result.imported.length === 1 ? "e adaugata" : "i adaugate"}.`,
       });
       if (result.warnings[0]) {
-        pushToast({ tone: "warn", title: "Import warnings", body: result.warnings[0] });
+        pushToast({ tone: "warn", title: "Avertismente import", body: result.warnings[0] });
       }
       setSource("");
     },
     onError: (error) => {
       pushToast({
         tone: "error",
-        title: "Skill import failed",
-        body: error instanceof Error ? error.message : "Failed to import skill source.",
+        title: "Importul abilitatii a esuat",
+        body: error instanceof Error ? error.message : "Nu s-a putut importa sursa abilitatii.",
       });
     },
   });
@@ -880,15 +880,15 @@ export function CompanySkills() {
       setCreateOpen(false);
       pushToast({
         tone: "success",
-        title: "Skill created",
-        body: `${skill.name} is now editable in the Paperclip workspace.`,
+        title: "Abilitate creata",
+        body: `${skill.name} este acum editabila in spatiul de lucru Paperclip.`,
       });
     },
     onError: (error) => {
       pushToast({
         tone: "error",
-        title: "Skill creation failed",
-        body: error instanceof Error ? error.message : "Failed to create skill.",
+        title: "Crearea abilitatii a esuat",
+        body: error instanceof Error ? error.message : "Nu s-a putut crea abilitatea.",
       });
     },
   });
@@ -896,28 +896,28 @@ export function CompanySkills() {
   const scanProjects = useMutation({
     mutationFn: () => companySkillsApi.scanProjects(selectedCompanyId!),
     onMutate: () => {
-      setScanStatusMessage("Scanning project workspaces for skills...");
+      setScanStatusMessage("Se scaneaza spatiile de lucru ale proiectelor pentru abilitati...");
     },
     onSuccess: async (result) => {
-      setScanStatusMessage("Refreshing skills list...");
+      setScanStatusMessage("Se reimprospateza lista de abilitati...");
       await queryClient.invalidateQueries({ queryKey: queryKeys.companySkills.list(selectedCompanyId!) });
       const summary = formatProjectScanSummary(result);
       setScanStatusMessage(summary);
       pushToast({
         tone: "success",
-        title: "Project skill scan complete",
+        title: "Scanarea abilitatilor din proiecte completa",
         body: summary,
       });
       if (result.conflicts[0]) {
         pushToast({
           tone: "warn",
-          title: "Skill conflicts found",
+          title: "Conflicte de abilitati gasite",
           body: result.conflicts[0].reason,
         });
       } else if (result.warnings[0]) {
         pushToast({
           tone: "warn",
-          title: "Scan warnings",
+          title: "Avertismente scanare",
           body: result.warnings[0],
         });
       }
@@ -926,8 +926,8 @@ export function CompanySkills() {
       setScanStatusMessage(null);
       pushToast({
         tone: "error",
-        title: "Project skill scan failed",
-        body: error instanceof Error ? error.message : "Failed to scan project workspaces.",
+        title: "Scanarea abilitatilor din proiecte a esuat",
+        body: error instanceof Error ? error.message : "Nu s-au putut scana spatiile de lucru ale proiectelor.",
       });
     },
   });
@@ -949,15 +949,15 @@ export function CompanySkills() {
       setEditMode(false);
       pushToast({
         tone: "success",
-        title: "Skill saved",
+        title: "Abilitate salvata",
         body: result.path,
       });
     },
     onError: (error) => {
       pushToast({
         tone: "error",
-        title: "Save failed",
-        body: error instanceof Error ? error.message : "Failed to save skill file.",
+        title: "Salvarea a esuat",
+        body: error instanceof Error ? error.message : "Nu s-a putut salva fisierul abilitatii.",
       });
     },
   });
@@ -974,21 +974,21 @@ export function CompanySkills() {
       navigate(skillRoute(skill.id, selectedPath));
       pushToast({
         tone: "success",
-        title: "Skill updated",
+        title: "Abilitate actualizata",
         body: skill.sourceRef ? `Pinned to ${shortRef(skill.sourceRef)}` : skill.name,
       });
     },
     onError: (error) => {
       pushToast({
         tone: "error",
-        title: "Update failed",
-        body: error instanceof Error ? error.message : "Failed to install skill update.",
+        title: "Actualizarea a esuat",
+        body: error instanceof Error ? error.message : "Nu s-a putut instala actualizarea abilitatii.",
       });
     },
   });
 
   if (!selectedCompanyId) {
-    return <EmptyState icon={Boxes} message="Select a company to manage skills." />;
+    return <EmptyState icon={Boxes} message="Selecteaza o companie pentru a gestiona abilitatile." />;
   }
 
   function handleAddSkillSource() {
@@ -1005,9 +1005,9 @@ export function CompanySkills() {
       <Dialog open={emptySourceHelpOpen} onOpenChange={setEmptySourceHelpOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Add a skill source</DialogTitle>
+            <DialogTitle>Adauga o sursa de abilitati</DialogTitle>
             <DialogDescription>
-              Paste a local path, GitHub URL, or `skills.sh` command into the field first.
+              Lipeste mai intai o cale locala, URL GitHub sau comanda `skills.sh` in camp.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-3 text-sm">
@@ -1018,9 +1018,9 @@ export function CompanySkills() {
               className="flex items-start justify-between rounded-md border border-border px-3 py-3 text-foreground no-underline transition-colors hover:bg-accent/40"
             >
               <span>
-                <span className="block font-medium">Browse skills.sh</span>
+                <span className="block font-medium">Rasfoieste skills.sh</span>
                 <span className="mt-1 block text-muted-foreground">
-                  Find install commands and paste one here.
+                  Gaseste comenzi de instalare si lipeste una aici.
                 </span>
               </span>
               <ExternalLink className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
@@ -1032,9 +1032,9 @@ export function CompanySkills() {
               className="flex items-start justify-between rounded-md border border-border px-3 py-3 text-foreground no-underline transition-colors hover:bg-accent/40"
             >
               <span>
-                <span className="block font-medium">Search GitHub</span>
+                <span className="block font-medium">Cauta pe GitHub</span>
                 <span className="mt-1 block text-muted-foreground">
-                  Look for repositories with `SKILL.md`, then paste the repo URL here.
+                  Cauta repository-uri cu `SKILL.md`, apoi lipeste URL-ul repo-ului aici.
                 </span>
               </span>
               <ExternalLink className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
@@ -1049,9 +1049,9 @@ export function CompanySkills() {
           <div className="border-b border-border px-4 py-3">
             <div className="flex items-center justify-between gap-2">
               <div>
-                <h1 className="text-base font-semibold">Skills</h1>
+                <h1 className="text-base font-semibold">Abilitati</h1>
                 <p className="text-xs text-muted-foreground">
-                  {skillsQuery.data?.length ?? 0} available
+                  {skillsQuery.data?.length ?? 0} disponibile
                 </p>
               </div>
               <div className="flex items-center gap-1">
@@ -1060,7 +1060,7 @@ export function CompanySkills() {
                   size="icon-sm"
                   onClick={() => scanProjects.mutate()}
                   disabled={scanProjects.isPending}
-                  title="Scan project workspaces for skills"
+                  title="Scaneaza spatiile de lucru ale proiectelor pentru abilitati"
                 >
                   <RefreshCw className={cn("h-4 w-4", scanProjects.isPending && "animate-spin")} />
                 </Button>
@@ -1075,7 +1075,7 @@ export function CompanySkills() {
               <input
                 value={skillFilter}
                 onChange={(event) => setSkillFilter(event.target.value)}
-                placeholder="Filter skills"
+                placeholder="Filtreaza abilitati"
                 className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
               />
             </div>
@@ -1084,7 +1084,7 @@ export function CompanySkills() {
               <input
                 value={source}
                 onChange={(event) => setSource(event.target.value)}
-                placeholder="Paste path, GitHub URL, or skills.sh command"
+                placeholder="Lipeste cale, URL GitHub sau comanda skills.sh"
                 className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
               />
               <Button
@@ -1093,7 +1093,7 @@ export function CompanySkills() {
                 onClick={handleAddSkillSource}
                 disabled={importSkill.isPending}
               >
-                {importSkill.isPending ? <RefreshCw className="h-4 w-4 animate-spin" /> : "Add"}
+                {importSkill.isPending ? <RefreshCw className="h-4 w-4 animate-spin" /> : "Adauga"}
               </Button>
             </div>
             {scanStatusMessage && (

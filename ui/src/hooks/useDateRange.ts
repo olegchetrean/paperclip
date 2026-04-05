@@ -3,12 +3,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 export type DatePreset = "mtd" | "7d" | "30d" | "ytd" | "all" | "custom";
 
 export const PRESET_LABELS: Record<DatePreset, string> = {
-  mtd: "Month to Date",
-  "7d": "Last 7 Days",
-  "30d": "Last 30 Days",
-  ytd: "Year to Date",
-  all: "All Time",
-  custom: "Custom",
+  mtd: "Luna curenta",
+  "7d": "Ultimele 7 zile",
+  "30d": "Ultimele 30 zile",
+  ytd: "Anul curent",
+  all: "Tot timpul",
+  custom: "Personalizat",
 };
 
 export const PRESET_KEYS: DatePreset[] = ["mtd", "7d", "30d", "ytd", "all", "custom"];

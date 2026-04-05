@@ -21,11 +21,11 @@ import { DraftInput } from "./agent-config-primitives";
 import { InlineEditor } from "./InlineEditor";
 
 const PROJECT_STATUSES = [
-  { value: "backlog", label: "Backlog" },
-  { value: "planned", label: "Planned" },
-  { value: "in_progress", label: "In Progress" },
-  { value: "completed", label: "Completed" },
-  { value: "cancelled", label: "Cancelled" },
+  { value: "backlog", label: "In asteptare" },
+  { value: "planned", label: "Planificat" },
+  { value: "in_progress", label: "In progres" },
+  { value: "completed", label: "Finalizat" },
+  { value: "cancelled", label: "Anulat" },
 ];
 
 interface ProjectPropertiesProps {
@@ -56,7 +56,7 @@ function SaveIndicator({ state }: { state: ProjectFieldSaveState }) {
     return (
       <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
         <Loader2 className="h-3 w-3 animate-spin" />
-        Saving
+        Se salveaza
       </span>
     );
   }
@@ -64,7 +64,7 @@ function SaveIndicator({ state }: { state: ProjectFieldSaveState }) {
     return (
       <span className="inline-flex items-center gap-1 text-[11px] text-green-600 dark:text-green-400">
         <Check className="h-3 w-3" />
-        Saved
+        Salvat
       </span>
     );
   }
@@ -72,7 +72,7 @@ function SaveIndicator({ state }: { state: ProjectFieldSaveState }) {
     return (
       <span className="inline-flex items-center gap-1 text-[11px] text-destructive">
         <AlertCircle className="h-3 w-3" />
-        Failed
+        Esuat
       </span>
     );
   }
@@ -162,19 +162,19 @@ function ArchiveDangerZone({
 }) {
   const [confirming, setConfirming] = useState(false);
   const isArchive = !project.archivedAt;
-  const action = isArchive ? "Archive" : "Unarchive";
+  const action = isArchive ? "Arhiveaza" : "Dezarhiveaza";
 
   return (
     <div className="space-y-3 rounded-md border border-destructive/40 bg-destructive/5 px-4 py-4">
       <p className="text-sm text-muted-foreground">
         {isArchive
-          ? "Archive this project to hide it from the sidebar and project selectors."
-          : "Unarchive this project to restore it in the sidebar and project selectors."}
+          ? "Arhiveaza acest proiect pentru a-l ascunde din bara laterala si selectoarele de proiecte."
+          : "Dezarhiveaza acest proiect pentru a-l restaura in bara laterala si selectoarele de proiecte."}
       </p>
       {archivePending ? (
         <Button size="sm" variant="destructive" disabled>
           <Loader2 className="h-3 w-3 animate-spin mr-1" />
-          {isArchive ? "Archiving..." : "Unarchiving..."}
+          {isArchive ? "Se arhiveaza..." : "Se dezarhiveaza..."}
         </Button>
       ) : confirming ? (
         <div className="flex items-center gap-2">
@@ -189,14 +189,14 @@ function ArchiveDangerZone({
               onArchive(isArchive);
             }}
           >
-            Confirm
+            Confirma
           </Button>
           <Button
             size="sm"
             variant="outline"
             onClick={() => setConfirming(false)}
           >
-            Cancel
+            Anuleaza
           </Button>
         </div>
       ) : (
@@ -206,9 +206,9 @@ function ArchiveDangerZone({
           onClick={() => setConfirming(true)}
         >
           {isArchive ? (
-            <><Archive className="h-3 w-3 mr-1" />{action} project</>
+            <><Archive className="h-3 w-3 mr-1" />{action} proiect</>
           ) : (
-            <><ArchiveRestore className="h-3 w-3 mr-1" />{action} project</>
+            <><ArchiveRestore className="h-3 w-3 mr-1" />{action} proiect</>
           )}
         </Button>
       )}

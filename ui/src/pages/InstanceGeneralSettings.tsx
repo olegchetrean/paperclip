@@ -29,7 +29,7 @@ export function InstanceGeneralSettings() {
 
   useEffect(() => {
     setBreadcrumbs([
-      { label: "Instance Settings" },
+      { label: "Setari Instanta" },
       { label: "General" },
     ]);
   }, [setBreadcrumbs]);
@@ -51,7 +51,7 @@ export function InstanceGeneralSettings() {
   });
 
   if (generalQuery.isLoading) {
-    return <div className="text-sm text-muted-foreground">Loading general settings...</div>;
+    return <div className="text-sm text-muted-foreground">Se incarca setarile generale...</div>;
   }
 
   if (generalQuery.error) {
@@ -76,7 +76,7 @@ export function InstanceGeneralSettings() {
           <h1 className="text-lg font-semibold">General</h1>
         </div>
         <p className="text-sm text-muted-foreground">
-          Configure instance-wide defaults that affect how operator-visible logs are displayed.
+          Configureaza setarile implicite la nivel de instanta care afecteaza modul de afisare a logurilor vizibile operatorului.
         </p>
       </div>
 
@@ -89,18 +89,18 @@ export function InstanceGeneralSettings() {
       <section className="rounded-xl border border-border bg-card p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1.5">
-            <h2 className="text-sm font-semibold">Censor username in logs</h2>
+            <h2 className="text-sm font-semibold">Cenzureaza numele de utilizator in loguri</h2>
             <p className="max-w-2xl text-sm text-muted-foreground">
-              Hide the username segment in home-directory paths and similar operator-visible log output. Standalone
-              username mentions outside of paths are not yet masked in the live transcript view. This is off by
-              default.
+              Ascunde segmentul de nume de utilizator in caile directorului home si in logurile vizibile operatorului. Mentiunile
+              izolate ale numelui de utilizator in afara cailor nu sunt inca mascate in vizualizarea transcript-ului live. Aceasta optiune
+              este dezactivata implicit.
             </p>
           </div>
           <ToggleSwitch
             checked={censorUsernameInLogs}
             onCheckedChange={() => updateGeneralMutation.mutate({ censorUsernameInLogs: !censorUsernameInLogs })}
             disabled={updateGeneralMutation.isPending}
-            aria-label="Toggle username log censoring"
+            aria-label="Comuta cenzurarea numelui de utilizator in loguri"
           />
         </div>
       </section>
@@ -108,17 +108,17 @@ export function InstanceGeneralSettings() {
       <section className="rounded-xl border border-border bg-card p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1.5">
-            <h2 className="text-sm font-semibold">Keyboard shortcuts</h2>
+            <h2 className="text-sm font-semibold">Scurtaturi de tastatura</h2>
             <p className="max-w-2xl text-sm text-muted-foreground">
-              Enable app keyboard shortcuts, including inbox navigation and global shortcuts like creating issues or
-              toggling panels. This is off by default.
+              Activeaza scurtaturile de tastatura ale aplicatiei, inclusiv navigarea in inbox si scurtaturi globale precum crearea
+              de sarcini sau comutarea panourilor. Aceasta optiune este dezactivata implicit.
             </p>
           </div>
           <ToggleSwitch
             checked={keyboardShortcuts}
             onCheckedChange={() => updateGeneralMutation.mutate({ keyboardShortcuts: !keyboardShortcuts })}
             disabled={updateGeneralMutation.isPending}
-            aria-label="Toggle keyboard shortcuts"
+            aria-label="Comuta scurtaturile de tastatura"
           />
         </div>
       </section>
@@ -126,10 +126,10 @@ export function InstanceGeneralSettings() {
       <section className="rounded-xl border border-border bg-card p-5">
         <div className="space-y-4">
           <div className="space-y-1.5">
-            <h2 className="text-sm font-semibold">AI feedback sharing</h2>
+            <h2 className="text-sm font-semibold">Partajare feedback AI</h2>
             <p className="max-w-2xl text-sm text-muted-foreground">
-              Control whether thumbs up and thumbs down votes can send the voted AI output to
-              Paperclip Labs. Votes are always saved locally.
+              Controleaza daca voturile pozitive si negative pot trimite rezultatul AI votat catre
+              Paperclip Labs. Voturile sunt intotdeauna salvate local.
             </p>
             {FEEDBACK_TERMS_URL ? (
               <a
@@ -138,27 +138,27 @@ export function InstanceGeneralSettings() {
                 rel="noreferrer"
                 className="inline-flex text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
               >
-                Read our terms of service
+                Citeste termenii si conditiile
               </a>
             ) : null}
           </div>
           {feedbackDataSharingPreference === "prompt" ? (
             <div className="rounded-lg border border-border/70 bg-accent/20 px-3 py-2 text-sm text-muted-foreground">
-              No default is saved yet. The next thumbs up or thumbs down choice will ask once and
-              then save the answer here.
+              Nicio valoare implicita nu este salvata inca. Urmatoarea alegere pozitiva sau negativa va intreba o data si
+              apoi va salva raspunsul aici.
             </div>
           ) : null}
           <div className="flex flex-wrap gap-2">
             {[
               {
                 value: "allowed",
-                label: "Always allow",
-                description: "Share voted AI outputs automatically.",
+                label: "Permite intotdeauna",
+                description: "Partajeaza rezultatele AI votate automat.",
               },
               {
                 value: "not_allowed",
-                label: "Don't allow",
-                description: "Keep voted AI outputs local only.",
+                label: "Nu permite",
+                description: "Pastreaza rezultatele AI votate doar local.",
               },
             ].map((option) => {
               const active = feedbackDataSharingPreference === option.value;
@@ -202,9 +202,9 @@ export function InstanceGeneralSettings() {
       <section className="rounded-xl border border-border bg-card p-5">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1.5">
-            <h2 className="text-sm font-semibold">Sign out</h2>
+            <h2 className="text-sm font-semibold">Deconectare</h2>
             <p className="max-w-2xl text-sm text-muted-foreground">
-              Sign out of this Paperclip instance. You will be redirected to the login page.
+              Deconecteaza-te de la aceasta instanta Paperclip. Vei fi redirectionat catre pagina de autentificare.
             </p>
           </div>
           <Button
@@ -214,7 +214,7 @@ export function InstanceGeneralSettings() {
             onClick={() => signOutMutation.mutate()}
           >
             <LogOut className="size-4" />
-            {signOutMutation.isPending ? "Signing out..." : "Sign out"}
+            {signOutMutation.isPending ? "Se deconecteaza..." : "Deconectare"}
           </Button>
         </div>
       </section>

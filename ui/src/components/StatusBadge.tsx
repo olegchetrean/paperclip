@@ -1,6 +1,22 @@
 import { cn } from "../lib/utils";
 import { statusBadge, statusBadgeDefault } from "../lib/status-colors";
 
+const statusDisplayLabels: Record<string, string> = {
+  todo: "De facut",
+  in_progress: "In progres",
+  in_review: "In revizuire",
+  done: "Finalizat",
+  blocked: "Blocat",
+  cancelled: "Anulat",
+  backlog: "Backlog",
+  terminated: "Terminat",
+  active: "Activ",
+  paused: "In pauza",
+  succeeded: "Reusit",
+  failed: "Esuat",
+  timed_out: "Expirat",
+};
+
 export function StatusBadge({ status }: { status: string }) {
   return (
     <span
@@ -9,7 +25,7 @@ export function StatusBadge({ status }: { status: string }) {
         statusBadge[status] ?? statusBadgeDefault
       )}
     >
-      {status.replace("_", " ")}
+      {statusDisplayLabels[status] ?? status.replace("_", " ")}
     </span>
   );
 }
